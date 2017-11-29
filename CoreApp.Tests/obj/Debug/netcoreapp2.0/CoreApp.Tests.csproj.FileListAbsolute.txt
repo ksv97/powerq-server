@@ -1,0 +1,16 @@
+D:\VS 2017 Projects\CoreApp\CoreApp.Tests\bin\Debug\netcoreapp2.0\xunit.runner.visualstudio.dotnetcore.testadapter.dll
+D:\VS 2017 Projects\CoreApp\CoreApp.Tests\bin\Debug\netcoreapp2.0\xunit.runner.utility.netstandard15.dll
+D:\VS 2017 Projects\CoreApp\CoreApp.Tests\bin\Debug\netcoreapp2.0\xunit.runner.reporters.netstandard15.dll
+D:\VS 2017 Projects\CoreApp\CoreApp.Tests\bin\Debug\netcoreapp2.0\CoreApp.Tests.deps.json
+D:\VS 2017 Projects\CoreApp\CoreApp.Tests\bin\Debug\netcoreapp2.0\CoreApp.Tests.runtimeconfig.json
+D:\VS 2017 Projects\CoreApp\CoreApp.Tests\bin\Debug\netcoreapp2.0\CoreApp.Tests.runtimeconfig.dev.json
+D:\VS 2017 Projects\CoreApp\CoreApp.Tests\bin\Debug\netcoreapp2.0\CoreApp.Tests.dll
+D:\VS 2017 Projects\CoreApp\CoreApp.Tests\bin\Debug\netcoreapp2.0\CoreApp.Tests.pdb
+D:\VS 2017 Projects\CoreApp\CoreApp.Tests\obj\Debug\netcoreapp2.0\CoreApp.Tests.csprojResolveAssemblyReference.cache
+D:\VS 2017 Projects\CoreApp\CoreApp.Tests\obj\Debug\netcoreapp2.0\CoreApp.Tests.csproj.CoreCompileInputs.cache
+D:\VS 2017 Projects\CoreApp\CoreApp.Tests\obj\Debug\netcoreapp2.0\CoreApp.Tests.AssemblyInfoInputs.cache
+D:\VS 2017 Projects\CoreApp\CoreApp.Tests\obj\Debug\netcoreapp2.0\CoreApp.Tests.AssemblyInfo.cs
+D:\VS 2017 Projects\CoreApp\CoreApp.Tests\obj\Debug\netcoreapp2.0\CoreApp.Tests.dll
+D:\VS 2017 Projects\CoreApp\CoreApp.Tests\obj\Debug\netcoreapp2.0\CoreApp.Tests.pdb
+D:\VS 2017 Projects\CoreApp\CoreApp.Tests\bin\Debug\netcoreapp2.0\CoreApp.dll
+D:\VS 2017 Projects\CoreApp\CoreApp.Tests\bin\Debug\netcoreapp2.0\CoreApp.pdb
