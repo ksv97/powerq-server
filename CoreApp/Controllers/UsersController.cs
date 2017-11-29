@@ -62,5 +62,29 @@ namespace CoreApp.Controllers
 			}
 			else return NotFound("Неверные имя пользователя или пароль!");
 		}
-    }
+
+		[HttpGet]
+		[Route("curator")]
+		public IActionResult GetCurator (int userId)
+		{
+			CuratorViewModel viewModel = repository.GetCurator(userId);
+			if (viewModel != null)
+			{
+				return Ok(viewModel);
+			}
+			return NotFound("Куратор с таким Id не существует!");
+		}
+
+		[HttpGet]
+		[Route("elder")]
+		public IActionResult GetElder(int userId)
+		{
+			ElderCuratorViewModel viewModel = repository.GetElder(userId);
+			if (viewModel != null)
+			{
+				return Ok(viewModel);
+			}
+			return NotFound("Старший куратор с таким Id не существует!");
+		}
+	}
 }

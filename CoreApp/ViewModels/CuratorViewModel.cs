@@ -20,8 +20,8 @@ namespace CoreApp.ViewModels
 			{
 				this.Id = curator.Id;
 				this.User = new UserViewModel(curator.User);
-				this.Faculty = new FacultyViewModel(curator.Faculty);
-				CuratedGroups = curator.CuratedGroups.Split(' ');
+				this.Faculty = new FacultyViewModel(curator.Faculty);				
+				CuratedGroups = curator.CuratedGroups.Trim().Split(' ');
 			}
 		}
     }

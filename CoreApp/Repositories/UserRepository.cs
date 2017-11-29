@@ -144,18 +144,18 @@ namespace CoreApp.Repositories
 
 				// For Zubkov
 
-				User existingUser = null;
-				foreach (User userDB in context.Users.Include(a => a.Role))
-				{
-					if (loginUser.Login == userDB.Login && loginUser.Password == userDB.Password)
-					{
-						existingUser = userDB;
-						break;
-					}
-				}
+				//User existingUser = null;
+				//foreach (User userDB in context.Users.Include(a => a.Role))
+				//{
+				//	if (loginUser.Login == userDB.Login && loginUser.Password == userDB.Password)
+				//	{
+				//		existingUser = userDB;
+				//		break;
+				//	}
+				//}
 
 				// For normal work
-				//User existingUser = context.Users.Include(a => a.Role).FirstOrDefault(m => m.Login == loginUser.Login && m.Password == loginUser.Password);
+				User existingUser = context.Users.Include(a => a.Role).FirstOrDefault(m => m.Login == loginUser.Login && m.Password == loginUser.Password);
 				if (existingUser != null)
 				{
 					return new UserViewModel(existingUser);
@@ -199,6 +199,30 @@ namespace CoreApp.Repositories
 				success = false;
 			}
 			return success;
+		}
+
+		public CuratorViewModel GetCurator(int userId)
+		{
+			Curator curator = context.Curators.Include(a => a.Faculty).
+				Include(a => a.User).ThenInclude(a => a.ScheduleEventUsers).
+				Include(a => a.User).ThenInclude(a => a.Role).
+				FirstOrDefault(u => u.User.Id == userId);
+			if (curator != null)
+			{
+				return new CuratorViewModel(curator);
+			}
+			return null;
+			
+		}
+
+		public ElderCuratorViewModel GetElder(int userId)
+		{
+			ElderCurator elder = context.ElderCurators.FirstOrDefault(u => u.User.Id == userId);
+			if (elder != null)
+			{
+				return new ElderCuratorViewModel(elder);
+			}
+			return null;
 		}
 	}
 }
