@@ -22,6 +22,7 @@ namespace CoreApp.Controllers
 		}
 
         [HttpPost]
+		[Route("create")]
 		public IActionResult CreateEvent ([FromBody]ScheduleEventViewModel viewModel)
 		{
 			int? result = this.repository.CreateScheduleEvent(viewModel);
@@ -42,6 +43,30 @@ namespace CoreApp.Controllers
 				return Ok(result);
 			}
 			else return NotFound();
+		}
+
+		[HttpPost]
+		[Route("update")]
+		public IActionResult UpdateScheduleEvent ([FromBody] ScheduleEventViewModel viewModel)
+		{
+			var result = repository.UpdateScheduleEvent(viewModel);
+			if (result > 0 && result != null)
+			{
+				return Ok(result);
+			}
+			return BadRequest();
+		}
+
+		[HttpPost]
+		[Route("delete")]
+		public IActionResult DeleteScheduleEvent ([FromBody]int id)
+		{
+			var result = repository.DeleteScheduleEvent(id);
+			if (result > 0 && result != null)
+			{
+				return Ok(result);
+			}
+			return BadRequest();
 		}
     }
 }

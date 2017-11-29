@@ -58,14 +58,21 @@ namespace CoreApp.Repositories.EventsRepository
 
 		public int? DeleteScheduleEvent(int id)
 		{
-			throw new NotImplementedException();
+			ScheduleEvent scheduleEventFromDB = context.ScheduleEvents.SingleOrDefault(i => i.Id == id);
+			if (scheduleEventFromDB != null)
+			{
+				context.ScheduleEvents.Remove(scheduleEventFromDB);
+				context.SaveChanges();
+				return 1;
+			}
+			return null;
 		}
 
 		public List<ScheduleEventViewModel> GetAllScheduleEvents(int userId)
 		{
 			//User user = context.Users.SingleOrDefault(i => i.Id == userId);
 			List<ScheduleEvent> eventsList = context.ScheduleEvents.AsNoTracking().
-				Include(i => i.ScheduleEventUsers).ThenInclude(d => d.User).ThenInclude(u => u.Role).ToList();
+				Include(i => i.ScheduleEventUsers).ThenInclude(d => d.User).ThenInclude(u => u.Role).Where(e => e.IsDeadline == false).ToList();
 			List<ScheduleEventViewModel> list = new List<ScheduleEventViewModel>();
 			foreach (var item in eventsList)
 			{
@@ -86,7 +93,43 @@ namespace CoreApp.Repositories.EventsRepository
 
 		public int? UpdateScheduleEvent(ScheduleEventViewModel viewModel)
 		{
-			throw new NotImplementedException();
+			if (viewModel != null)
+			{
+				ScheduleEvent oldScheduleEvent = context.ScheduleEvents.
+					Include(x => x.ScheduleEventUsers).ThenInclude(x => x.User).ThenInclude(x => x.Role).
+					SingleOrDefault(x => x.Id == viewModel.Id);
+				if (oldScheduleEvent != null)
+				{
+					oldScheduleEvent.Description = viewModel.Description;
+					oldScheduleEvent.Date = viewModel.Date;
+					oldScheduleEvent.IsDeadline = viewModel.IsDeadline;
+					oldScheduleEvent.Title = viewModel.Title;
+					context.SaveChanges();
+
+					// adding new users for current event if any appears
+					foreach (UserViewModel user in viewModel.Users)
+					{
+						User userFromDb = context.Users.Include(r => r.Role).SingleOrDefault(x => x.Id == user.Id);
+						if (userFromDb != null)
+						{
+							ScheduleEventUser scheduleEventUserFromDb = context.ScheduleEventUsers.SingleOrDefault(x => x.ScheduleEvent.Id == oldScheduleEvent.Id && x.User.Id == userFromDb.Id);
+							if (scheduleEventUserFromDb == null)
+							{
+								scheduleEventUserFromDb = new ScheduleEventUser()
+								{
+									ScheduleEvent = oldScheduleEvent,
+									User = userFromDb,
+								};
+								context.ScheduleEventUsers.Add(scheduleEventUserFromDb);
+								context.SaveChanges();
+							}
+						}
+					}
+					return 1;
+				}
+				else return -1;
+			}
+			return null;
 		}
 	}
 }

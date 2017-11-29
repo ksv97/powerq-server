@@ -87,6 +87,23 @@ namespace CoreApp.Models
 
 			context.SaveChanges();
 
+			var curators = new Curator[]
+			{
+				new Curator
+				{
+					CuratedGroups = "41 42",
+					Faculty = context.Faculties.SingleOrDefault(x => x.Name == "ЭЭФ"),
+					User = context.Users.SingleOrDefault(x => x.Login == "ann123"),
+				}
+			};
+
+			foreach (var curator in curators)
+			{
+				context.Curators.Add(curator);
+			}
+
+			context.SaveChanges();
+
 			var events = new ScheduleEvent[]
 			{
 				new ScheduleEvent

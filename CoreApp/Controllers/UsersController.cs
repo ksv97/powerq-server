@@ -86,5 +86,7 @@ namespace CoreApp.Controllers
 			}
 			return NotFound("Старший куратор с таким Id не существует!");
 		}
+
+		
 	}
 }
