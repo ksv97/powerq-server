@@ -37,20 +37,7 @@ namespace CoreApp.Controllers
 		[HttpGet]
 		public IActionResult GetAllScheduleEventsAssignedToUser (int userId)
 		{
-			bool isDeadline = false;
-			var result = repository.GetAllScheduleEvents(userId, isDeadline);
-			if (result != null)
-			{
-				return Ok(result);
-			}
-			else return NotFound();
-		}
-		[HttpGet]
-		[Route("deadlines")]
-		public IActionResult GetAllDeadlinesForUser(int userId)
-		{
-			bool isDeadline = true;
-			var result = repository.GetAllScheduleEvents(userId, isDeadline);
+			var result = repository.GetAllScheduleEvents(userId);
 			if (result != null)
 			{
 				return Ok(result);

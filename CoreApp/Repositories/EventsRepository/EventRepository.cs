@@ -68,11 +68,11 @@ namespace CoreApp.Repositories.EventsRepository
 			return null;
 		}
 
-		public List<ScheduleEventViewModel> GetAllScheduleEvents(int userId, bool isDeadline)
+		public List<ScheduleEventViewModel> GetAllScheduleEvents(int userId)
 		{
 			//User user = context.Users.SingleOrDefault(i => i.Id == userId);
 			List<ScheduleEvent> eventsList = context.ScheduleEvents.AsNoTracking().
-				Include(i => i.ScheduleEventUsers).ThenInclude(d => d.User).ThenInclude(u => u.Role).Where(e => e.IsDeadline == isDeadline).ToList();
+				Include(i => i.ScheduleEventUsers).ThenInclude(d => d.User).ThenInclude(u => u.Role).Where(e => e.IsDeadline == false).ToList();
 			List<ScheduleEventViewModel> list = new List<ScheduleEventViewModel>();
 			foreach (var item in eventsList)
 			{

@@ -9,8 +9,8 @@ namespace CoreApp.Repositories.EventsRepository
     public interface IEventRepository
     {
 		int? CreateScheduleEvent(ScheduleEventViewModel scheduleEventVM);
-		List<ScheduleEventViewModel> GetAllScheduleEvents(int userId, bool isDeadline);
+		List<ScheduleEventViewModel> GetAllScheduleEvents(int userId);
 		int? DeleteScheduleEvent(int id);
-		int? UpdateScheduleEvent(ScheduleEventViewModel newScheduleEventVM);				
+		int? UpdateScheduleEvent(ScheduleEventViewModel newScheduleEventVM);
     }
 }
