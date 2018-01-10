@@ -144,18 +144,18 @@ namespace CoreApp.Repositories
 
 				// For Zubkov
 
-				//User existingUser = null;
-				//foreach (User userDB in context.Users.Include(a => a.Role))
-				//{
-				//	if (loginUser.Login == userDB.Login && loginUser.Password == userDB.Password)
-				//	{
-				//		existingUser = userDB;
-				//		break;
-				//	}
-				//}
+				User existingUser = null;
+				foreach (User userDB in context.Users.Include(a => a.Role))
+				{
+					if (loginUser.Login == userDB.Login && loginUser.Password == userDB.Password)
+					{
+						existingUser = userDB;
+						break;
+					}
+				}
 
 				// For normal work
-				User existingUser = context.Users.Include(a => a.Role).FirstOrDefault(m => m.Login == loginUser.Login && m.Password == loginUser.Password);
+				//User existingUser = context.Users.Include(a => a.Role).FirstOrDefault(m => m.Login == loginUser.Login && m.Password == loginUser.Password);
 				if (existingUser != null)
 				{
 					return new UserViewModel(existingUser);

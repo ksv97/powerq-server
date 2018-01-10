@@ -121,5 +121,91 @@ namespace CoreApp.Tests
 			Assert.Null(result);
 		}
 
-    }
+
+		/// <summary>
+		/// Если на вход пришли данные null, то на выходе должен быть false
+		/// </summary>
+		[Fact]
+		public void RegisterUser_NullInput_ShouldReturnFalse()
+		{
+			DbSeed.Seed(this.fixture.Context);
+			UserViewModel input = null;
+			UserRepository repository = new UserRepository(fixture.Context);
+
+			Assert.False(repository.RegisterUser(input));
+		}
+
+
+		/// <summary>
+		/// Подать на вход данные, в которых указан логин, уже содержащийся в базе. Получить false
+		/// </summary>
+		[Fact]
+		public void RegisterUser_UserInputWithAlreadyTakenLogin_ShouldReturnFalse()
+		{
+			DbSeed.Seed(this.fixture.Context);
+			User newUser = new User
+			{
+				FirstName = "Даша",
+				SurName = "Волкова",
+				Login = "dasha123",
+				Password = "dasha123",
+			};
+			UserViewModel inputUser = new UserViewModel(newUser);
+
+			UserRepository repository = new UserRepository(fixture.Context);
+
+			var result = repository.RegisterUser(inputUser);
+
+			Assert.False(result);
+
+		}
+
+		/// <summary>
+		/// Подать на вход данные, в которых указан логин, уже содержащийся в базе. Получить false
+		/// </summary>
+		[Fact]
+		public void RegisterUser_UserInputWithUniqueLogin_ShouldReturnTrue()
+		{
+			DbSeed.Seed(this.fixture.Context);
+			User newUser = new User
+			{
+				FirstName = "Даша",
+				SurName = "Волкова",
+				Login = "this_login_is_unique",
+				Password = "dasha123",
+			};
+			UserViewModel inputUser = new UserViewModel(newUser);
+
+			UserRepository repository = new UserRepository(fixture.Context);
+
+			var result = repository.RegisterUser(inputUser);
+
+			Assert.True(result);
+
+		}
+
+
+		/// <summary>
+		/// Подать на вход данные, при условии, что в базе нет записей. Вернется True
+		/// </summary>
+		[Fact]
+		public void RegisterUser_ContextContainsNoUsers_ShouldReturnTrue()
+		{
+			User user = new User
+			{
+				FirstName = "Даша",
+				SurName = "Волкова",
+				Login = "dontexist",
+				Password = "dontexist",
+			};
+			UserViewModel inputUser = new UserViewModel(user);
+
+			UserRepository repository = new UserRepository(fixture.Context);
+
+			var result = repository.RegisterUser(inputUser);
+
+			Assert.True(result);
+		}
+
+	}
 }
