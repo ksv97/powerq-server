@@ -13,8 +13,8 @@ namespace CoreApp.Models
 		public DbSet<Role> Roles { set; get; }
 		public DbSet<Curator> Curators { set; get; }
 		public DbSet<ElderCurator> ElderCurators { set; get; }
-		public DbSet<ScheduleEvent> ScheduleEvents { set; get; }
-		public DbSet<ScheduleEventUser> ScheduleEventUsers { set; get; }
+		public DbSet<Event> Events { set; get; }
+		public DbSet<ScheduledEvent> ScheduledEvents { set; get; }
 
 		public Context(DbContextOptions<Context> options)
 			: base(options)
@@ -26,7 +26,7 @@ namespace CoreApp.Models
 		{
 			base.OnModelCreating(modelBuilder);
 
-			modelBuilder.Entity<ScheduleEventUser>().HasKey(key => new { key.ScheduleEventId, key.UserId });
+			modelBuilder.Entity<ScheduledEvent>().HasKey(key => new { key.EventId, key.UserId });
 
 		}
 

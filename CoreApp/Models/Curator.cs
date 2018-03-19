@@ -16,6 +16,7 @@ namespace CoreApp.Models
 		public Faculty Faculty { set; get; }
 
 		public string CuratedGroups { set; get; }
+		public int Mark { set; get; }
 
 		
     }

@@ -17,17 +17,17 @@ namespace CoreApp.Repositories.EventsRepository
 			this.context = context;
 		}
 
-		public int? CreateScheduleEvent(ScheduleEventViewModel viewModel)
+		public int? CreateScheduleEvent(EventViewModel viewModel)
 		{
 			if (viewModel != null)
 			{
-				ScheduleEvent scheduleEvent = new ScheduleEvent()
+				Event scheduleEvent = new Event()
 				{
 					Date = viewModel.Date,
 					Description = viewModel.Description,
 					IsDeadline = viewModel.IsDeadline,
 					Title = viewModel.Title,
-					ScheduleEventUsers = new List<ScheduleEventUser>(),
+					ScheduledEvents = new List<ScheduledEvent>(),
 					
 				};
 
@@ -40,15 +40,15 @@ namespace CoreApp.Repositories.EventsRepository
 					}
 					else
 					{
-						scheduleEvent.ScheduleEventUsers.Add(new ScheduleEventUser()
+						scheduleEvent.ScheduledEvents.Add(new ScheduledEvent()
 						{
-							ScheduleEvent = scheduleEvent,
+							Event = scheduleEvent,
 							User = user
 						});
 					}
 				}
 
-				var entity = context.ScheduleEvents.Add(scheduleEvent);
+				var entity = context.Events.Add(scheduleEvent);
 				context.SaveChanges();
 				int? id = entity.Entity.Id;
 				return id;
@@ -58,29 +58,29 @@ namespace CoreApp.Repositories.EventsRepository
 
 		public int? DeleteScheduleEvent(int id)
 		{
-			ScheduleEvent scheduleEventFromDB = context.ScheduleEvents.SingleOrDefault(i => i.Id == id);
-			if (scheduleEventFromDB != null)
+			Event eventFromDB = context.Events.SingleOrDefault(i => i.Id == id);
+			if (eventFromDB != null)
 			{
-				context.ScheduleEvents.Remove(scheduleEventFromDB);
+				context.Events.Remove(eventFromDB);
 				context.SaveChanges();
 				return 1;
 			}
 			return null;
 		}
 
-		public List<ScheduleEventViewModel> GetAllScheduleEvents(int userId)
+		public List<EventViewModel> GetAllScheduleEvents(int userId)
 		{
 			//User user = context.Users.SingleOrDefault(i => i.Id == userId);
-			List<ScheduleEvent> eventsList = context.ScheduleEvents.AsNoTracking().
-				Include(i => i.ScheduleEventUsers).ThenInclude(d => d.User).ThenInclude(u => u.Role).Where(e => e.IsDeadline == false).ToList();
-			List<ScheduleEventViewModel> list = new List<ScheduleEventViewModel>();
+			List<Event> eventsList = context.Events.AsNoTracking().
+				Include(i => i.ScheduledEvents).ThenInclude(d => d.User).ThenInclude(u => u.Role).Where(e => e.IsDeadline == false).ToList();
+			List<EventViewModel> list = new List<EventViewModel>();
 			foreach (var item in eventsList)
 			{
-				foreach (var user in item.ScheduleEventUsers)
+				foreach (var user in item.ScheduledEvents)
 				{
 					if (user.User.Id == userId)
 					{
-						list.Add(new ScheduleEventViewModel(item));
+						list.Add(new EventViewModel(item));
 					}
 				}
 			}
@@ -91,12 +91,12 @@ namespace CoreApp.Repositories.EventsRepository
 			
 		}
 
-		public int? UpdateScheduleEvent(ScheduleEventViewModel viewModel)
+		public int? UpdateScheduleEvent(EventViewModel viewModel)
 		{
 			if (viewModel != null)
 			{
-				ScheduleEvent oldScheduleEvent = context.ScheduleEvents.
-					Include(x => x.ScheduleEventUsers).ThenInclude(x => x.User).ThenInclude(x => x.Role).
+				Event oldScheduleEvent = context.Events.
+					Include(x => x.ScheduledEvents).ThenInclude(x => x.User).ThenInclude(x => x.Role).
 					SingleOrDefault(x => x.Id == viewModel.Id);
 				if (oldScheduleEvent != null)
 				{
@@ -112,15 +112,15 @@ namespace CoreApp.Repositories.EventsRepository
 						User userFromDb = context.Users.Include(r => r.Role).SingleOrDefault(x => x.Id == user.Id);
 						if (userFromDb != null)
 						{
-							ScheduleEventUser scheduleEventUserFromDb = context.ScheduleEventUsers.SingleOrDefault(x => x.ScheduleEvent.Id == oldScheduleEvent.Id && x.User.Id == userFromDb.Id);
-							if (scheduleEventUserFromDb == null)
+							ScheduledEvent scheduledEventFromDb = context.ScheduledEvents.SingleOrDefault(x => x.Event.Id == oldScheduleEvent.Id && x.User.Id == userFromDb.Id);
+							if (scheduledEventFromDb == null)
 							{
-								scheduleEventUserFromDb = new ScheduleEventUser()
+								scheduledEventFromDb = new ScheduledEvent()
 								{
-									ScheduleEvent = oldScheduleEvent,
+									Event = oldScheduleEvent,
 									User = userFromDb,
 								};
-								context.ScheduleEventUsers.Add(scheduleEventUserFromDb);
+								context.ScheduledEvents.Add(scheduledEventFromDb);
 								context.SaveChanges();
 							}
 						}

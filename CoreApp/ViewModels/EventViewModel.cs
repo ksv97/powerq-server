@@ -6,7 +6,7 @@ using CoreApp.Models;
 
 namespace CoreApp.ViewModels
 {
-	public class ScheduleEventViewModel
+	public class EventViewModel
 	{
 		public int Id { set; get; }
 		public DateTime Date { set; get; }
@@ -15,7 +15,7 @@ namespace CoreApp.ViewModels
 		public bool IsDeadline { set; get; }
 		public List<UserViewModel> Users { set; get; }
 
-		public ScheduleEventViewModel(ScheduleEvent newEvent)
+		public EventViewModel(Event newEvent)
 		{
 			if (newEvent != null)
 			{
@@ -25,7 +25,7 @@ namespace CoreApp.ViewModels
 				this.Description = newEvent.Description;
 				this.IsDeadline = newEvent.IsDeadline;
 				this.Users = new List<UserViewModel>();
-				foreach (ScheduleEventUser element in newEvent.ScheduleEventUsers)
+				foreach (ScheduledEvent element in newEvent.ScheduledEvents)
 				{
 					UserViewModel userViewModel = new UserViewModel(element.User);
 					this.Users.Add(userViewModel);

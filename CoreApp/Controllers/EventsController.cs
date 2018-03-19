@@ -23,7 +23,7 @@ namespace CoreApp.Controllers
 
         [HttpPost]
 		[Route("create")]
-		public IActionResult CreateEvent ([FromBody]ScheduleEventViewModel viewModel)
+		public IActionResult CreateEvent ([FromBody]EventViewModel viewModel)
 		{
 			int? result = this.repository.CreateScheduleEvent(viewModel);
 			if (result >= 0)
@@ -47,7 +47,7 @@ namespace CoreApp.Controllers
 
 		[HttpPost]
 		[Route("update")]
-		public IActionResult UpdateScheduleEvent ([FromBody] ScheduleEventViewModel viewModel)
+		public IActionResult UpdateScheduleEvent ([FromBody] EventViewModel viewModel)
 		{
 			var result = repository.UpdateScheduleEvent(viewModel);
 			if (result > 0 && result != null)

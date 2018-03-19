@@ -5,18 +5,18 @@ using System.Threading.Tasks;
 
 namespace CoreApp.Models
 {
-    public class ScheduleEvent
+    public class Event
     {
 		public int Id { set; get; }
 		public DateTime Date { set; get; }
 		public string Title { set; get; }
 		public string Description { set; get; }
 		public bool IsDeadline { set; get; }
-		public List<ScheduleEventUser> ScheduleEventUsers { set; get; }
+		public List<ScheduledEvent> ScheduledEvents { set; get; }
 
-		public ScheduleEvent()
+		public Event()
 		{
-			this.ScheduleEventUsers = new List<ScheduleEventUser>();
+			this.ScheduledEvents = new List<ScheduledEvent>();
 		}
 
     }

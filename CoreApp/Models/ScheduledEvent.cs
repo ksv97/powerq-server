@@ -5,12 +5,14 @@ using System.Threading.Tasks;
 
 namespace CoreApp.Models
 {
-    public class ScheduleEventUser
+    public class ScheduledEvent
     {
+		public int Id { set; get; }
+
 		public int UserId { set; get; }
 		public User User { set; get; }
 
-		public int ScheduleEventId { set; get; }
-		public ScheduleEvent ScheduleEvent { set; get; }
+		public int EventId { set; get; }
+		public Event Event { set; get; }
     }
 }

@@ -204,7 +204,7 @@ namespace CoreApp.Repositories
 		public CuratorViewModel GetCurator(int userId)
 		{
 			Curator curator = context.Curators.Include(a => a.Faculty).
-				Include(a => a.User).ThenInclude(a => a.ScheduleEventUsers).
+				Include(a => a.User).ThenInclude(a => a.ScheduledEvents).
 				Include(a => a.User).ThenInclude(a => a.Role).
 				FirstOrDefault(u => u.User.Id == userId);
 			if (curator != null)
