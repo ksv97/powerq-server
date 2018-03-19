@@ -9,3 +9,14 @@ D:\VS 2017 Projects\CoreApp\CoreApp\obj\Debug\netcoreapp2.0\CoreApp.AssemblyInfo
 D:\VS 2017 Projects\CoreApp\CoreApp\obj\Debug\netcoreapp2.0\CoreApp.AssemblyInfo.cs
 D:\VS 2017 Projects\CoreApp\CoreApp\obj\Debug\netcoreapp2.0\CoreApp.dll
 D:\VS 2017 Projects\CoreApp\CoreApp\obj\Debug\netcoreapp2.0\CoreApp.pdb
+C:\Users\Родион\Desktop\Projects\powerq-server\CoreApp\bin\Debug\netcoreapp2.0\CoreApp.deps.json
+C:\Users\Родион\Desktop\Projects\powerq-server\CoreApp\bin\Debug\netcoreapp2.0\CoreApp.runtimeconfig.json
+C:\Users\Родион\Desktop\Projects\powerq-server\CoreApp\bin\Debug\netcoreapp2.0\CoreApp.runtimeconfig.dev.json
+C:\Users\Родион\Desktop\Projects\powerq-server\CoreApp\bin\Debug\netcoreapp2.0\CoreApp.dll
+C:\Users\Родион\Desktop\Projects\powerq-server\CoreApp\bin\Debug\netcoreapp2.0\CoreApp.pdb
+C:\Users\Родион\Desktop\Projects\powerq-server\CoreApp\obj\Debug\netcoreapp2.0\CoreApp.csprojResolveAssemblyReference.cache
+C:\Users\Родион\Desktop\Projects\powerq-server\CoreApp\obj\Debug\netcoreapp2.0\CoreApp.csproj.CoreCompileInputs.cache
+C:\Users\Родион\Desktop\Projects\powerq-server\CoreApp\obj\Debug\netcoreapp2.0\CoreApp.AssemblyInfoInputs.cache
+C:\Users\Родион\Desktop\Projects\powerq-server\CoreApp\obj\Debug\netcoreapp2.0\CoreApp.AssemblyInfo.cs
+C:\Users\Родион\Desktop\Projects\powerq-server\CoreApp\obj\Debug\netcoreapp2.0\CoreApp.dll
+C:\Users\Родион\Desktop\Projects\powerq-server\CoreApp\obj\Debug\netcoreapp2.0\CoreApp.pdb

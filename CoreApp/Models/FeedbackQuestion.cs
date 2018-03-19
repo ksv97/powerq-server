@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace CoreApp.Models
 {
-    public class Head: User
+    public class FeedbackQuestion
     {
     }
 }
