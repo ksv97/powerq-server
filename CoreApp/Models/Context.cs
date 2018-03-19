@@ -15,6 +15,8 @@ namespace CoreApp.Models
 		public DbSet<ElderCurator> ElderCurators { set; get; }
 		public DbSet<Event> Events { set; get; }
 		public DbSet<ScheduledEvent> ScheduledEvents { set; get; }
+		public DbSet<FeedbackForm> FeedbackForms { set; get; }
+		public DbSet<FeedbackQuestion> FeedbackQuestions { set; get; }
 
 		public Context(DbContextOptions<Context> options)
 			: base(options)

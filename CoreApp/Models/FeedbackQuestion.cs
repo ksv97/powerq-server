@@ -7,5 +7,10 @@ namespace CoreApp.Models
 {
     public class FeedbackQuestion
     {
+		public int Id { set; get; }
+		public string Name { set; get; }
+
+		public int FeedbackFormId { set; get; }
+		public FeedbackForm FeedbackForm { set; get; }
     }
 }

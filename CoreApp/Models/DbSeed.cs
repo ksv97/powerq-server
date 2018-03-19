@@ -34,7 +34,7 @@ namespace CoreApp.Models
 			var roles = new Role[]
 			{
 				new Role { Name = "Куратор" },
-				new Role { Name = "Старший куратор" },		
+				new Role { Name = "Старший куратор"},		
 			};
 
 			foreach (var role in roles)
@@ -170,6 +170,51 @@ namespace CoreApp.Models
 			}
 
 			context.SaveChanges();
+
+			var feedbackForms = new FeedbackForm[]
+{
+				new FeedbackForm
+				{
+					Name = "Отчет о 1-ом КЧ",
+					DeadlineDate = new DateTime(2018, 4, 15),
+				},
+				new FeedbackForm
+				{
+					Name = "Отчет о 2-ом КЧ",
+					DeadlineDate = new DateTime(2018, 5, 25),
+				},
+};
+
+			foreach (var feedbackForm in feedbackForms)
+			{
+				context.FeedbackForms.Add(feedbackForm);
+			}
+
+			context.SaveChanges();
+
+			var feedbackQuestions = new FeedbackQuestion[]
+			{
+				// для формы №1
+				new FeedbackQuestion { Name = "Как группа вас встретила и отреагировала на вас?", FeedbackForm = context.FeedbackForms.SingleOrDefault(f => f.Name == "Отчет о 1-ом КЧ")},
+				new FeedbackQuestion { Name = "Как вам ваши ребята?", FeedbackForm = context.FeedbackForms.SingleOrDefault(f => f.Name == "Отчет о 1-ом КЧ")},
+				new FeedbackQuestion { Name = "Что делали? (вот тут максимально подробно и со всеми косяками, если они есть)", FeedbackForm = context.FeedbackForms.SingleOrDefault(f => f.Name == "Отчет о 1-ом КЧ")},
+				new FeedbackQuestion { Name = "Как ваши эмоции после первого кураторского часа?", FeedbackForm = context.FeedbackForms.SingleOrDefault(f => f.Name == "Отчет о 1-ом КЧ")},
+				new FeedbackQuestion { Name = "Сделайте вывод о проделанной вами работе и оцените ее по шкале от 1 до 10.", FeedbackForm = context.FeedbackForms.SingleOrDefault(f => f.Name == "Отчет о 1-ом КЧ")},
+
+				// для формы №2
+				new FeedbackQuestion { Name = "Реакция группы на веревку: как ребята воспринимали задания, какие эмоции у них были? Были ли сложности и как они с этим справлялись?", FeedbackForm = context.FeedbackForms.SingleOrDefault(f => f.Name == "Отчет о 2-ом КЧ")},
+				new FeedbackQuestion { Name = "Как проводилась верёвка с точки зрения организации: плюсы и минусы, что понравилось, а что нет", FeedbackForm = context.FeedbackForms.SingleOrDefault(f => f.Name == "Отчет о 2-ом КЧ")},
+				new FeedbackQuestion { Name = "Вмешивались ли вы в процесс проведения веревки и каким образом? Как вам самим все мероприятие и ребята с точки зрения эмоций?", FeedbackForm = context.FeedbackForms.SingleOrDefault(f => f.Name == "Отчет о 2-ом КЧ")},
+				new FeedbackQuestion { Name = "Оценочка вашей работы по шкале от 1 до 10.", FeedbackForm = context.FeedbackForms.SingleOrDefault(f => f.Name == "Отчет о 2-ом КЧ")},
+			};
+
+			foreach (var feedbackQuestion in feedbackQuestions)
+			{
+				context.FeedbackQuestions.Add(feedbackQuestion);
+			}
+
+			context.SaveChanges();
+
 
 		}
 	}
