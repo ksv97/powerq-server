@@ -13,6 +13,7 @@ using CoreApp.Repositories.FacultyRepository;
 using CoreApp.Repositories.RolesRepository;
 using CoreApp.Repositories;
 using CoreApp.Repositories.EventsRepository;
+using CoreApp.Repositories.FeedbackFormRepository;
 
 namespace CoreApp
 {
@@ -53,6 +54,7 @@ namespace CoreApp
 			services.AddScoped<IRolesRepository, RolesRepository>();
 			services.AddScoped<IUserRepository, UserRepository>();
 			services.AddScoped<IEventRepository, EventRepository>();
+			services.AddScoped<IFeedbackFormRepository, FeedbackFormRepository>();
 		}
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
