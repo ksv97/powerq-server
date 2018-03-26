@@ -9,6 +9,9 @@ namespace CoreApp.Models
     {
 		public int Id { set; get; }
 
+		public int FeedbackId { get; set; }
+		public Feedback Feedback { get; set; }
+
 		public int UserId { set; get; }
 		public User User { set; get; }
 
