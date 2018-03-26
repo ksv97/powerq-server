@@ -22,6 +22,7 @@ namespace CoreApp.ViewModels
 				this.Id = feedbackForm.Id;
 				this.Name = feedbackForm.Name;
 				this.DeadlineDate = feedbackForm.DeadlineDate;
+				this.FeedbackQuestions = new List<FeedbackQuestionViewModel>();
 
 				foreach (FeedbackQuestion fq in feedbackForm.FeedbackQuestions)
 				{

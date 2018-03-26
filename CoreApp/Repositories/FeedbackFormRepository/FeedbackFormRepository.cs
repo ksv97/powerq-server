@@ -42,20 +42,22 @@ namespace CoreApp.Repositories.FeedbackFormRepository
 			return false;			
 		}
 
-		public bool DeleteFeedbackForm(FeedbackFormViewModel item)
+		public bool DeleteFeedbackForm(int id)
 		{
-			if (item != null)
+			FeedbackForm formFromDb = this.context.FeedbackForms.Include(x => x.FeedbackQuestions).SingleOrDefault(x => x.Id == id);
+			if (formFromDb != null)
 			{
-				FeedbackForm formFromDb = this.context.FeedbackForms.Include(x => x.FeedbackQuestions).SingleOrDefault(x => x.Id == item.Id);
-				if (formFromDb != null)
+				foreach (FeedbackQuestion question in formFromDb.FeedbackQuestions)
 				{
-					this.context.FeedbackForms.Remove(formFromDb);
-					this.context.SaveChanges();
+					this.context.FeedbackQuestions.Remove(question);
 				}
-				else return false;
+				context.SaveChanges();
+
+				this.context.FeedbackForms.Remove(formFromDb);
+				this.context.SaveChanges();
+				return true;
 			}
-			return false;
-			
+			else return false;
 		}
 
 		public List<FeedbackFormViewModel> GetAllFeedbackForms()

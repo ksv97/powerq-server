@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using CoreApp.Repositories.FeedbackFormRepository;
+using CoreApp.ViewModels;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -13,9 +14,9 @@ namespace CoreApp.Controllers
     [Route("api/[controller]")]
     public class FeedbackFormsController : Controller
     {
-		private FeedbackFormRepository repository;
+		private IFeedbackFormRepository repository;
 
-		public FeedbackFormsController(FeedbackFormRepository repository)
+		public FeedbackFormsController(IFeedbackFormRepository repository)
 		{
 			this.repository = repository;
 		}
@@ -27,29 +28,43 @@ namespace CoreApp.Controllers
 			return Ok(repository.GetAllFeedbackForms());
         }
 
-        // GET api/<controller>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
-        {
-            return "value";
-        }
+		[HttpPost]
+		[Route("create")]
+		public IActionResult CreateFeedbackForm ([FromBody]FeedbackFormViewModel viewModel)
+		{
+			bool result = this.repository.AddFeedbackForm(viewModel);
+			if (result == true)
+			{
+				return Ok(result);
+			}
 
-        // POST api/<controller>
-        [HttpPost]
-        public void Post([FromBody]string value)
-        {
-        }
+			return BadRequest();
+		}
 
-        // PUT api/<controller>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody]string value)
-        {
-        }
+		[HttpPost]
+		[Route("update")]
+		public IActionResult UpdateFeedbackForm([FromBody]FeedbackFormViewModel viewModel)
+		{
+			bool result = this.repository.UpdateFeedbackForm(viewModel);
+			if (result == true)
+			{
+				return Ok(result);
+			}
 
-        // DELETE api/<controller>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-        }
-    }
+			return BadRequest();
+		}
+
+		[HttpPost]
+		[Route("delete")]
+		public IActionResult DeleteFeedbackForm([FromBody]int id)
+		{
+			bool result = this.repository.DeleteFeedbackForm(id);
+			if (result == true)
+			{
+				return Ok(result);
+			}
+
+			return BadRequest();
+		}
+	}
 }
