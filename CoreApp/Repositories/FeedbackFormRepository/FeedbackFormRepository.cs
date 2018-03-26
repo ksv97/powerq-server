@@ -78,13 +78,36 @@ namespace CoreApp.Repositories.FeedbackFormRepository
 				{
 					formFromDb.DeadlineDate = item.DeadlineDate;
 					formFromDb.Name = item.Name;
-					formFromDb.FeedbackQuestions = new List<FeedbackQuestion>();
-					
-					// TODO
-					// Дописать часть с апдейтом вопросов по следующему алгоритму
-					// Сначала удалить все вопросы из старого списка, айдишников которых нет в новом списке item.FeedbackQuestions
-					// Затем перебрать все вопросы в новом списке. Если найден в существующем вопрос с таким айдишником, изменить его характеристики
-					// Иначе добавить новый вопрос к этому списку и записать в базу данных
+
+					foreach (FeedbackQuestion questionFromDb in formFromDb.FeedbackQuestions)
+					{
+						// Найти в новом списке элемент с совпадающим айдишником
+						FeedbackQuestionViewModel newQuestion = item.FeedbackQuestions.SingleOrDefault(q => q.Id == questionFromDb.Id);
+
+						// если он найден, поместить в уже существующий в базе элемент новые данные
+						if (newQuestion != null) 
+						{
+							questionFromDb.Name = newQuestion.Name;							
+						}
+						else // иначе удалить существующий элемент
+						{
+							formFromDb.FeedbackQuestions.Remove(questionFromDb);
+						}
+					}
+
+					context.SaveChanges();
+
+					// Выбрать все вопросы, у которых айди равен -1 (то есть новые) и добавить их в список
+					foreach (FeedbackQuestionViewModel newQuestionVM in item.FeedbackQuestions.Where(i => i.Id == -1))
+					{
+						FeedbackQuestion questionToAdd = new FeedbackQuestion()
+						{
+							Name = newQuestionVM.Name,
+							FeedbackForm = formFromDb,
+						};
+						formFromDb.FeedbackQuestions.Add(questionToAdd);
+					}
+					context.SaveChanges();
 				}
 				else return false;
 			}
