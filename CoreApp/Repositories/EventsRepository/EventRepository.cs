@@ -73,8 +73,9 @@ namespace CoreApp.Repositories.EventsRepository
 		public List<EventViewModel> GetAllScheduleEvents(int userId)
 		{
 			//User user = context.Users.SingleOrDefault(i => i.Id == userId);
-			List<Event> eventsList = context.Events.AsNoTracking().
-				Include(i => i.ScheduledEvents).ThenInclude(d => d.User).ThenInclude(u => u.Role).Where(e => e.IsDeadline == false).OrderBy(i => i.Date).ToList();
+			List<Event> eventsList = context.Events.AsNoTracking().Include(e => e.Author)
+				.Include(i => i.ScheduledEvents).ThenInclude(d => d.User).ThenInclude(u => u.Role)
+				.Where(e => e.IsDeadline == false).OrderBy(i => i.Date).ToList();
 			List<EventViewModel> list = new List<EventViewModel>();
 			foreach (var item in eventsList)
 			{
@@ -105,7 +106,7 @@ namespace CoreApp.Repositories.EventsRepository
 					oldScheduleEvent.Description = viewModel.Description;
 					oldScheduleEvent.Date = viewModel.Date.AddHours(3);
 					oldScheduleEvent.IsDeadline = viewModel.IsDeadline;
-					oldScheduleEvent.Title = viewModel.Title;
+					oldScheduleEvent.Title = viewModel.Title;					
 					context.SaveChanges();
 
 					// adding new users for current event if any appears

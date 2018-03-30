@@ -116,6 +116,7 @@ namespace CoreApp.Models
 					Description = "Провести четвертый кч с группой 1-41. Вся подробная информация в группе ВК. Аудитория Б001в. Время - 11:40.",
 					Date = new DateTime(2017, 09, 27, 11, 40, 0),
 					IsDeadline = false,
+					Author = context.Users.Single(a => a.Login == "ann123")
 				},
 				new Event
 				{
@@ -123,6 +124,7 @@ namespace CoreApp.Models
 					Description = "Общая планерка по 4 кч. Проводим в пятницу, в холле корпуса В. Время - 19:20. Присутствие обязательно!",
 					Date = new DateTime(2017, 09, 30, 19, 20, 0),
 					IsDeadline = false,
+					Author = context.Users.Single(a => a.Login == "ksv97")
 				},
 				new Event
 				{
@@ -130,6 +132,7 @@ namespace CoreApp.Models
 					Description = "Провести четвертый кч с группой 1-42. Вся подробная информация в группе ВК. Аудитория А342. Время - 13:30.",
 					Date = new DateTime(2017, 09, 28, 13, 30, 0),
 					IsDeadline = false,
+					Author = context.Users.Single(a => a.Login == "ann123")
 				},
 			};
 

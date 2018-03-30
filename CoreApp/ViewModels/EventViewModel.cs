@@ -14,6 +14,7 @@ namespace CoreApp.ViewModels
 		public string Description { set; get; }
 		public bool IsDeadline { set; get; }
 		public List<UserViewModel> Users { set; get; }
+		public UserViewModel Author { set; get; }
 
 		public EventViewModel(Event newEvent)
 		{
@@ -24,12 +25,13 @@ namespace CoreApp.ViewModels
 				this.Title = newEvent.Title;
 				this.Description = newEvent.Description;
 				this.IsDeadline = newEvent.IsDeadline;
+				this.Author = new UserViewModel(newEvent.Author);
 				this.Users = new List<UserViewModel>();
 				foreach (ScheduledEvent element in newEvent.ScheduledEvents)
 				{
 					UserViewModel userViewModel = new UserViewModel(element.User);
 					this.Users.Add(userViewModel);
-				}
+				}				
 			}
 		}
 
