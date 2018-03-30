@@ -23,15 +23,16 @@ namespace CoreApp.Repositories.EventsRepository
 			{
 				Event scheduleEvent = new Event()
 				{
-					Date = viewModel.Date,
+					Date = viewModel.Date.AddHours(3),
 					Description = viewModel.Description,
 					IsDeadline = viewModel.IsDeadline,
-					Title = viewModel.Title,					
+					Title = viewModel.Title,
 					ScheduledEvents = new List<ScheduledEvent>(),
-					
+					Author = this.context.Users.Single(x => x.Id == viewModel.Author.Id),
 				};
 
-				scheduleEvent.Date = scheduleEvent.Date.AddHours(3);
+				//scheduleEvent.Date = scheduleEvent.Date.AddHours(3)			
+				
 
 				foreach (UserViewModel userVM in viewModel.Users)
 				{
