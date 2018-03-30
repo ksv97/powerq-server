@@ -146,11 +146,13 @@ namespace CoreApp.Models
 				{
 					EventId = context.Events.SingleOrDefault(i => i.Title == "Кураторский час с группой 1-41").Id,
 					UserId = context.Users.SingleOrDefault(i => i.Login == "ann123").Id,
+					Author = context.Users.Single(i=> i.Login == "ann123")
 				},
 				new ScheduledEvent
 				{
 					EventId = context.Events.SingleOrDefault(i => i.Title == "Общая планерка").Id,
 					UserId = context.Users.SingleOrDefault(i => i.Login == "ann123").Id,
+					Author = context.Users.Single(i=> i.Login == "ksv97")
 				},
 				new ScheduledEvent
 				{
@@ -161,6 +163,7 @@ namespace CoreApp.Models
 				{
 					EventId = context.Events.SingleOrDefault(i => i.Title == "Кураторский час с группой 1-42").Id,
 					UserId = context.Users.SingleOrDefault(i => i.Login == "ann123").Id,
+					Author = context.Users.Single(i=> i.Login == "ann123")
 				},
 			};
 

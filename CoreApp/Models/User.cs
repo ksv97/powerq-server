@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -13,7 +14,10 @@ namespace CoreApp.Models
 		public string FirstName { set; get; }
 		public string SurName { set; get; }
 		public bool IsAdmin { set; get; }
+		[InverseProperty("User")]
 		public List<ScheduledEvent> ScheduledEvents { set; get; }
+		[InverseProperty("Author")]
+		public List<ScheduledEvent> AuthoredEvents { set; get; }
 
 		public int RoleId { set; get; }
 		
