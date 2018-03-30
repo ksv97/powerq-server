@@ -12,7 +12,9 @@ namespace CoreApp.ViewModels
 		public UserViewModel User { set; get; }
 
 		public FacultyViewModel Faculty { set; get; }
-		public string[] CuratedGroups { set; get; }
+		public string CuratedGroups { set; get; }
+		public int Mark { get; set; }
+		//public string[] CuratedGroups { set; get; }
 
 		public CuratorViewModel(Curator curator)
 		{
@@ -20,8 +22,10 @@ namespace CoreApp.ViewModels
 			{
 				this.Id = curator.Id;
 				this.User = new UserViewModel(curator.User);
-				this.Faculty = new FacultyViewModel(curator.Faculty);				
-				CuratedGroups = curator.CuratedGroups.Trim().Split(' ');
+				this.Faculty = new FacultyViewModel(curator.Faculty);
+				this.Mark = curator.Mark;
+				//CuratedGroups = curator.CuratedGroups.Trim().Split(' ');
+				CuratedGroups = curator.CuratedGroups;
 			}
 		}
     }

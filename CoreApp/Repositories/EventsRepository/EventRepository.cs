@@ -26,10 +26,12 @@ namespace CoreApp.Repositories.EventsRepository
 					Date = viewModel.Date,
 					Description = viewModel.Description,
 					IsDeadline = viewModel.IsDeadline,
-					Title = viewModel.Title,
+					Title = viewModel.Title,					
 					ScheduledEvents = new List<ScheduledEvent>(),
 					
 				};
+
+				scheduleEvent.Date = scheduleEvent.Date.AddHours(3);
 
 				foreach (UserViewModel userVM in viewModel.Users)
 				{
@@ -72,7 +74,7 @@ namespace CoreApp.Repositories.EventsRepository
 		{
 			//User user = context.Users.SingleOrDefault(i => i.Id == userId);
 			List<Event> eventsList = context.Events.AsNoTracking().
-				Include(i => i.ScheduledEvents).ThenInclude(d => d.User).ThenInclude(u => u.Role).Where(e => e.IsDeadline == false).ToList();
+				Include(i => i.ScheduledEvents).ThenInclude(d => d.User).ThenInclude(u => u.Role).Where(e => e.IsDeadline == false).OrderBy(i => i.Date).ToList();
 			List<EventViewModel> list = new List<EventViewModel>();
 			foreach (var item in eventsList)
 			{
@@ -101,7 +103,7 @@ namespace CoreApp.Repositories.EventsRepository
 				if (oldScheduleEvent != null)
 				{
 					oldScheduleEvent.Description = viewModel.Description;
-					oldScheduleEvent.Date = viewModel.Date;
+					oldScheduleEvent.Date = viewModel.Date.AddHours(3);
 					oldScheduleEvent.IsDeadline = viewModel.IsDeadline;
 					oldScheduleEvent.Title = viewModel.Title;
 					context.SaveChanges();

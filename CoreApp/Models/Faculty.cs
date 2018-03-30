@@ -9,6 +9,7 @@ namespace CoreApp.Models
     {
 		public int Id { set; get; }
 		public string Name { set; get; }
+		public int Mark { get; set; }
 
 		public List<User> Users { set; get; }
 

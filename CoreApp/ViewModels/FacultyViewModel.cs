@@ -10,6 +10,7 @@ namespace CoreApp.ViewModels
     {
 		public int Id { set; get; }
 		public string Name { set; get; }
+		public int Mark { get; set; }
 
 		public FacultyViewModel(Faculty faculty)
 		{
@@ -17,6 +18,7 @@ namespace CoreApp.ViewModels
 			{
 				this.Id = faculty.Id;
 				this.Name = faculty.Name;
+				this.Mark = faculty.Mark;
 			}
 		}
     }

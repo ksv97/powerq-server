@@ -64,8 +64,9 @@ namespace CoreApp.Repositories
 		{			
 			if (curatorViewModel != null)
 			{
-				string curatedGroups;
-				ParseCuratedGroups(curatorViewModel.CuratedGroups, out curatedGroups);
+				string curatedGroups = curatorViewModel.CuratedGroups;
+				//ParseCuratedGroups(curatorViewModel.CuratedGroups, out curatedGroups);
+
 
 				Curator curator = new Curator()
 				{

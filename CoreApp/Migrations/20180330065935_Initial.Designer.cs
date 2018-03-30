@@ -11,8 +11,8 @@ using System;
 namespace CoreApp.Migrations
 {
     [DbContext(typeof(Context))]
-    [Migration("20180326152102_FeedbackForms")]
-    partial class FeedbackForms
+    [Migration("20180330065935_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -84,11 +84,63 @@ namespace CoreApp.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<int>("Mark");
+
                     b.Property<string>("Name");
 
                     b.HasKey("Id");
 
                     b.ToTable("Faculties");
+                });
+
+            modelBuilder.Entity("CoreApp.Models.Feedback", b =>
+                {
+                    b.Property<int>("ScheduledEventId");
+
+                    b.Property<DateTime>("DateOfWriting");
+
+                    b.Property<int>("Mark");
+
+                    b.HasKey("ScheduledEventId");
+
+                    b.ToTable("Feedbacks");
+                });
+
+            modelBuilder.Entity("CoreApp.Models.FeedbackAnswer", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Answer");
+
+                    b.Property<int>("FeedbackAnswerFormId");
+
+                    b.Property<string>("Question");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("FeedbackAnswerFormId");
+
+                    b.ToTable("FeedbackAnswers");
+                });
+
+            modelBuilder.Entity("CoreApp.Models.FeedbackAnswerForm", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<DateTime>("DeadlineDate");
+
+                    b.Property<int>("FeedbackId");
+
+                    b.Property<string>("Name");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("FeedbackId")
+                        .IsUnique();
+
+                    b.ToTable("FeedbackAnswerForms");
                 });
 
             modelBuilder.Entity("CoreApp.Models.FeedbackForm", b =>
@@ -135,13 +187,16 @@ namespace CoreApp.Migrations
 
             modelBuilder.Entity("CoreApp.Models.ScheduledEvent", b =>
                 {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
                     b.Property<int>("EventId");
 
                     b.Property<int>("UserId");
 
-                    b.Property<int>("Id");
+                    b.HasKey("Id");
 
-                    b.HasKey("EventId", "UserId");
+                    b.HasIndex("EventId");
 
                     b.HasIndex("UserId");
 
@@ -199,6 +254,30 @@ namespace CoreApp.Migrations
                     b.HasOne("CoreApp.Models.User", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("CoreApp.Models.Feedback", b =>
+                {
+                    b.HasOne("CoreApp.Models.ScheduledEvent", "ScheduledEvent")
+                        .WithOne("Feedback")
+                        .HasForeignKey("CoreApp.Models.Feedback", "ScheduledEventId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("CoreApp.Models.FeedbackAnswer", b =>
+                {
+                    b.HasOne("CoreApp.Models.FeedbackAnswerForm", "FeedbackAnswerForm")
+                        .WithMany("FeedbackAnswers")
+                        .HasForeignKey("FeedbackAnswerFormId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("CoreApp.Models.FeedbackAnswerForm", b =>
+                {
+                    b.HasOne("CoreApp.Models.Feedback", "Feedback")
+                        .WithOne("FeedbackAnswerForm")
+                        .HasForeignKey("CoreApp.Models.FeedbackAnswerForm", "FeedbackId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 

@@ -17,6 +17,9 @@ namespace CoreApp.Models
 		public DbSet<ScheduledEvent> ScheduledEvents { set; get; }
 		public DbSet<FeedbackForm> FeedbackForms { set; get; }
 		public DbSet<FeedbackQuestion> FeedbackQuestions { set; get; }
+		public DbSet<Feedback> Feedbacks { get; set; }
+		public DbSet<FeedbackAnswer> FeedbackAnswers { get; set; }
+		public DbSet<FeedbackAnswerForm> FeedbackAnswerForms { get; set; }		 
 
 		public Context(DbContextOptions<Context> options)
 			: base(options)
@@ -26,9 +29,7 @@ namespace CoreApp.Models
 
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
-			base.OnModelCreating(modelBuilder);
-
-			modelBuilder.Entity<ScheduledEvent>().HasKey(key => new { key.EventId, key.UserId });
+			base.OnModelCreating(modelBuilder);			
 
 		}
 

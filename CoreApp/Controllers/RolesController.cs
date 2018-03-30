@@ -22,7 +22,7 @@ namespace CoreApp.Controllers
 
 
         // GET: api/values
-        [HttpGet("{id}")]
+        [HttpGet]
         public IActionResult GetAll()
         {
 			return Ok(repository.GetAllRoles());
