@@ -15,6 +15,7 @@ namespace CoreApp.Models
 		public bool IsAdmin { set; get; }
 		public List<ScheduledEvent> ScheduledEvents { set; get; }
 		public List<Event> AuthoredEvents { get; set; }
+		public List<Feedback> FeedbacksOfUser { get; set; }
 
 		public int RoleId { set; get; }		
 		public Role Role { set; get; }
@@ -23,6 +24,7 @@ namespace CoreApp.Models
 		{
 			this.ScheduledEvents = new List<ScheduledEvent>();
 			this.AuthoredEvents = new List<Event>();
+			this.FeedbacksOfUser = new List<Feedback>();
 		}
     }
 }

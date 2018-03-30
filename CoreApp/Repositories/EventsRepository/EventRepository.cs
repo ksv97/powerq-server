@@ -76,13 +76,14 @@ namespace CoreApp.Repositories.EventsRepository
 			//User user = context.Users.SingleOrDefault(i => i.Id == userId);
 			List<Event> eventsList = context.Events.AsNoTracking().Include(e => e.Author)
 				.Include(i => i.ScheduledEvents).ThenInclude(d => d.User).ThenInclude(u => u.Role)
+				.Include(a => a.ScheduledEvents).ThenInclude(f => f.Feedback)
 				.Where(e => e.IsDeadline == false).OrderBy(i => i.Date).ToList();
 			List<EventViewModel> list = new List<EventViewModel>();
 			foreach (var item in eventsList)
-			{
-				foreach (var user in item.ScheduledEvents)
+			{			
+				foreach (var scheduledEvent in item.ScheduledEvents)
 				{
-					if (user.User.Id == userId)
+					if (scheduledEvent.User.Id == userId && scheduledEvent.Feedback == null)
 					{
 						list.Add(new EventViewModel(item));
 					}

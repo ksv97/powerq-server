@@ -12,6 +12,7 @@ namespace CoreApp.ViewModels
 		public int Mark { get; set; }
 		public FeedbackAnswerFormViewModel FeedbackAnswerForm { get; set; }
 		public EventViewModel Event { get; set; }
+		public UserViewModel Author { get; set; }
 
 		public FeedbackViewModel(Feedback feedback)
 		{			
@@ -19,6 +20,7 @@ namespace CoreApp.ViewModels
 			Mark = feedback.Mark;
 			FeedbackAnswerForm = new FeedbackAnswerFormViewModel(feedback.FeedbackAnswerForm);
 			Event = new EventViewModel(feedback.ScheduledEvent.Event);
+			Author = new UserViewModel(feedback.Author);
 		}
 	}
 }
