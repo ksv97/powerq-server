@@ -16,11 +16,15 @@ namespace CoreApp.ViewModels
 
 		public FeedbackViewModel(Feedback feedback)
 		{			
-			DateOfWriting = feedback.DateOfWriting;
-			Mark = feedback.Mark;
-			FeedbackAnswerForm = new FeedbackAnswerFormViewModel(feedback.FeedbackAnswerForm);
-			Event = new EventViewModel(feedback.ScheduledEvent.Event);
-			Author = new UserViewModel(feedback.Author);
+			if (feedback != null)
+			{
+				DateOfWriting = feedback.DateOfWriting;
+				Mark = feedback.Mark;
+				FeedbackAnswerForm = new FeedbackAnswerFormViewModel(feedback.FeedbackAnswerForm);
+				Event = new EventViewModel(feedback.ScheduledEvent.Event);
+				Author = new UserViewModel(feedback.Author);
+			}
+			
 		}
 	}
 }

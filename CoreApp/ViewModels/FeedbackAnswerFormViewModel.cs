@@ -16,16 +16,20 @@ namespace CoreApp.ViewModels
 
 		public FeedbackAnswerFormViewModel(FeedbackAnswerForm form)
 		{			
-			Id = form.Id;
-			Name = form.Name;
-			DeadlineDate = form.DeadlineDate;
-
-			FeedbackAnswers = new List<FeedbackAnswerViewModel>();
-			foreach (FeedbackAnswer answer in form.FeedbackAnswers)
+			if (form != null)
 			{
-				FeedbackAnswerViewModel answerVM = new FeedbackAnswerViewModel(answer);
-				FeedbackAnswers.Add(answerVM);
+				Id = form.Id;
+				Name = form.Name;
+				DeadlineDate = form.DeadlineDate;
+
+				FeedbackAnswers = new List<FeedbackAnswerViewModel>();
+				foreach (FeedbackAnswer answer in form.FeedbackAnswers)
+				{
+					FeedbackAnswerViewModel answerVM = new FeedbackAnswerViewModel(answer);
+					FeedbackAnswers.Add(answerVM);
+				}
 			}
+			
 		}
     }
 }

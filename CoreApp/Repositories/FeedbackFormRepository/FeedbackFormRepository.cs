@@ -27,7 +27,7 @@ namespace CoreApp.Repositories.FeedbackFormRepository
 					DeadlineDate = item.DeadlineDate,
 					Name = item.Name,
 				};
-				foreach (FeedbackQuestionViewModel question in item.FeedbackQuestions)
+				foreach (FeedbackQuestionViewModel question in item.Questions)
 				{
 					FeedbackQuestion feedbackQuestion = new FeedbackQuestion
 					{
@@ -84,7 +84,7 @@ namespace CoreApp.Repositories.FeedbackFormRepository
 					foreach (FeedbackQuestion questionFromDb in formFromDb.FeedbackQuestions)
 					{
 						// Найти в новом списке элемент с совпадающим айдишником
-						FeedbackQuestionViewModel newQuestion = item.FeedbackQuestions.SingleOrDefault(q => q.Id == questionFromDb.Id);
+						FeedbackQuestionViewModel newQuestion = item.Questions.SingleOrDefault(q => q.Id == questionFromDb.Id);
 
 						// если он найден, поместить в уже существующий в базе элемент новые данные
 						if (newQuestion != null) 
@@ -100,7 +100,7 @@ namespace CoreApp.Repositories.FeedbackFormRepository
 					context.SaveChanges();
 
 					// Выбрать все вопросы, у которых айди равен -1 (то есть новые) и добавить их в список
-					foreach (FeedbackQuestionViewModel newQuestionVM in item.FeedbackQuestions.Where(i => i.Id == -1))
+					foreach (FeedbackQuestionViewModel newQuestionVM in item.Questions.Where(i => i.Id == -1))
 					{
 						FeedbackQuestion questionToAdd = new FeedbackQuestion()
 						{

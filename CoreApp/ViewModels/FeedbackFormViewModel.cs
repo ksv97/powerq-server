@@ -13,7 +13,7 @@ namespace CoreApp.ViewModels
 		public string Name { set; get; }
 		public DateTime DeadlineDate { set; get; }
 
-		public List<FeedbackQuestionViewModel> FeedbackQuestions { set; get; }
+		public List<FeedbackQuestionViewModel> Questions { set; get; }
 
 		public FeedbackFormViewModel(FeedbackForm feedbackForm)
 		{
@@ -22,11 +22,11 @@ namespace CoreApp.ViewModels
 				this.Id = feedbackForm.Id;
 				this.Name = feedbackForm.Name;
 				this.DeadlineDate = feedbackForm.DeadlineDate;
-				this.FeedbackQuestions = new List<FeedbackQuestionViewModel>();
+				this.Questions = new List<FeedbackQuestionViewModel>();
 
 				foreach (FeedbackQuestion fq in feedbackForm.FeedbackQuestions)
 				{
-					this.FeedbackQuestions.Add(new FeedbackQuestionViewModel(fq));
+					this.Questions.Add(new FeedbackQuestionViewModel(fq));
 				}
 			}
 		}

@@ -15,9 +15,13 @@ namespace CoreApp.ViewModels
 
 		public FeedbackAnswerViewModel(FeedbackAnswer model)
 		{
-			Id = model.Id;
-			Question = model.Question;
-			Answer = model.Answer;
+			if (model != null)
+			{
+				Id = model.Id;
+				Question = model.Question;
+				Answer = model.Answer;
+			}
+			
 		}
     }
 }

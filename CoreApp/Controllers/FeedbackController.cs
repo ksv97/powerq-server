@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using CoreApp.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using CoreApp.Repositories.FeedbackRepository;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -11,6 +13,13 @@ namespace CoreApp.Controllers
     [Route("api/[controller]")]
     public class FeedbackController : Controller
     {
+		private IFeedbackRepository repository;
+
+		public FeedbackController(IFeedbackRepository repo)
+		{
+			this.repository = repo;
+		}
+
         // GET: api/<controller>
         [HttpGet]
         public IEnumerable<string> Get()
@@ -26,10 +35,17 @@ namespace CoreApp.Controllers
         }
 
         // POST api/<controller>
-        [HttpPost]
-        public void Post([FromBody]string value)
+        [HttpPost("create")]
+        public IActionResult CreateFeedback([FromBody]FeedbackViewModel viewModel)
         {
-        }
+			int? result = this.repository.CreateFeedback(viewModel);
+			if (result >= 0)
+			{
+				return Ok(result);
+			}
+
+			return BadRequest();
+		}
 
         // PUT api/<controller>/5
         [HttpPut("{id}")]
