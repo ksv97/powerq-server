@@ -9,6 +9,8 @@ namespace CoreApp.Repositories.FeedbackRepository
     public interface IFeedbackRepository
     {
 		int? CreateFeedback(FeedbackViewModel viewModel);
+		int? UpdateFeedback(FeedbackViewModel viewModel);
+		int? DeleteFeedback(DeleteFeedbackViewModel deleteModel);
 		List<FeedbackViewModel> GetAllFeedbacks();
     }
 }

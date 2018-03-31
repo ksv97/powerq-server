@@ -21,17 +21,15 @@ namespace CoreApp.Controllers
 		}
 
         // GET: api/<controller>
-        [HttpGet]
-        public IEnumerable<string> Get()
+        [HttpGet("all")]
+        public IActionResult GetAllFeedbacks()
         {
-            return new string[] { "value1", "value2" };
-        }
-
-        // GET api/<controller>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
-        {
-            return "value";
+			List<FeedbackViewModel> allFeedbacks = this.repository.GetAllFeedbacks();
+			if (allFeedbacks != null)
+			{
+				return Ok(allFeedbacks);
+			}
+			return BadRequest();
         }
 
         // POST api/<controller>
@@ -47,16 +45,32 @@ namespace CoreApp.Controllers
 			return BadRequest();
 		}
 
-        // PUT api/<controller>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody]string value)
-        {
-        }
+		[HttpPost("update")]
+		public IActionResult UpdateFeedback([FromBody]FeedbackViewModel viewModel)
+		{
+			if (viewModel != null)
+			{
+				int? result = this.repository.UpdateFeedback(viewModel);
+				if (result >= 0)
+				{
+					return Ok(result);
+				}
+			}
+			return BadRequest();
+		}
 
-        // DELETE api/<controller>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-        }
-    }
+		[HttpPost("delete")]
+		public IActionResult DeleteFeedback([FromBody]DeleteFeedbackViewModel deleteModel)
+		{
+			if (deleteModel != null)
+			{
+				int? result = this.repository.DeleteFeedback(deleteModel);
+				if (result >= 0)
+				{
+					return Ok(result);
+				}
+			}
+			return BadRequest();
+		}
+	}
 }

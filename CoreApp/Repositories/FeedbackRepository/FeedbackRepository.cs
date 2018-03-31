@@ -54,9 +54,45 @@ namespace CoreApp.Repositories.FeedbackRepository
 			return null;
 		}
 
+		public int? UpdateFeedback(FeedbackViewModel viewModel)
+		{
+			ScheduledEvent oldScheduledEventForFeedback = GetScheduledEventByKeys(viewModel.Author.Id, viewModel.Event.Id);
+			if (oldScheduledEventForFeedback != null)
+			{
+				Feedback oldFeedback = oldScheduledEventForFeedback.Feedback;
+				oldFeedback.Mark = viewModel.Mark;
+				foreach (FeedbackAnswerViewModel newAnswer in viewModel.FeedbackAnswerForm.FeedbackAnswers)
+				{
+					foreach (FeedbackAnswer oldAnswer in oldFeedback.FeedbackAnswerForm.FeedbackAnswers)
+					{
+						if (oldAnswer.Question == newAnswer.Question)
+						{
+							oldAnswer.Answer = newAnswer.Answer;
+						}
+					}
+				}
+				this.context.SaveChanges();
+				return 1;
+			}
+			return null;
+		}
+
+		public int? DeleteFeedback(DeleteFeedbackViewModel deleteModel)
+		{
+			ScheduledEvent oldScheduledEventForFeedback = GetScheduledEventByKeys(deleteModel.UserId, deleteModel.EventId);
+			if (oldScheduledEventForFeedback != null)
+			{
+				this.context.Feedbacks.Remove(oldScheduledEventForFeedback.Feedback);
+				context.SaveChanges();
+				return 1;
+			}
+			return null;
+		}
+
 		public List<FeedbackViewModel> GetAllFeedbacks()
 		{
-			List<Feedback> feedbacksFromDb = this.context.Feedbacks.Include(i => i.Author).Include(i => i.FeedbackAnswerForm).ThenInclude(a => a.FeedbackAnswers).Include(e => e.ScheduledEvent).ThenInclude(ev => ev.Event).ToList();
+			List<Feedback> feedbacksFromDb = this.context.Feedbacks.Include(i => i.Author).Include(i => i.FeedbackAnswerForm).ThenInclude(a => a.FeedbackAnswers)
+				.Include(e => e.ScheduledEvent).ThenInclude(ev => ev.Event).OrderBy(i => i.FeedbackAnswerForm.Name).ToList();
 			List<FeedbackViewModel> feedbacksViewModels = new List<FeedbackViewModel>();
 
 			foreach (Feedback feedbackFromDb in feedbacksFromDb)
@@ -64,6 +100,11 @@ namespace CoreApp.Repositories.FeedbackRepository
 				feedbacksViewModels.Add(new FeedbackViewModel(feedbackFromDb));
 			}
 			return feedbacksViewModels;
+		}
+
+		public ScheduledEvent GetScheduledEventByKeys(int userId, int eventId)
+		{
+			return this.context.ScheduledEvents.Include(f => f.Feedback).ThenInclude(a => a.FeedbackAnswerForm).ThenInclude(f => f.FeedbackAnswers).Include(u => u.User).Include(e => e.Event).Single(i => i.Event.Id == eventId && i.User.Id == userId);
 		}
 	}
 }
