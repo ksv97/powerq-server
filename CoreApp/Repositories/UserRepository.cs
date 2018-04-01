@@ -218,7 +218,9 @@ namespace CoreApp.Repositories
 
 		public ElderCuratorViewModel GetElder(int userId)
 		{
-			ElderCurator elder = context.ElderCurators.FirstOrDefault(u => u.User.Id == userId);
+			ElderCurator elder = context.ElderCurators.Include(a => a.Faculty).
+				Include(a => a.User).ThenInclude(a => a.Role).
+				FirstOrDefault(u => u.User.Id == userId);
 			if (elder != null)
 			{
 				return new ElderCuratorViewModel(elder);
