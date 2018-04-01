@@ -91,8 +91,7 @@ namespace CoreApp.Repositories.FeedbackRepository
 
 		public List<FeedbackViewModel> GetAllFeedbacks()
 		{
-			List<Feedback> feedbacksFromDb = this.context.Feedbacks.Include(i => i.Author).Include(i => i.FeedbackAnswerForm).ThenInclude(a => a.FeedbackAnswers)
-				.Include(e => e.ScheduledEvent).ThenInclude(ev => ev.Event).OrderBy(i => i.FeedbackAnswerForm.Name).ToList();
+			List<Feedback> feedbacksFromDb = this.GetFeedbacksFromDb();
 			List<FeedbackViewModel> feedbacksViewModels = new List<FeedbackViewModel>();
 
 			foreach (Feedback feedbackFromDb in feedbacksFromDb)
@@ -102,9 +101,38 @@ namespace CoreApp.Repositories.FeedbackRepository
 			return feedbacksViewModels;
 		}
 
-		public ScheduledEvent GetScheduledEventByKeys(int userId, int eventId)
+		private ScheduledEvent GetScheduledEventByKeys(int userId, int eventId)
 		{
 			return this.context.ScheduledEvents.Include(f => f.Feedback).ThenInclude(a => a.FeedbackAnswerForm).ThenInclude(f => f.FeedbackAnswers).Include(u => u.User).Include(e => e.Event).Single(i => i.Event.Id == eventId && i.User.Id == userId);
+		}
+
+		private List<Feedback> GetFeedbacksFromDb()
+		{
+			return this.context.Feedbacks.Include(i => i.Author).Include(i => i.FeedbackAnswerForm).ThenInclude(a => a.FeedbackAnswers)
+				.Include(e => e.ScheduledEvent).ThenInclude(ev => ev.Event).OrderBy(i => i.FeedbackAnswerForm.Name).ToList();
+		}
+
+		public List<FeedbackViewModel> GetUserFeedbacks(int userId)
+		{
+			List<FeedbackViewModel> userFeedbacks = new List<FeedbackViewModel>();
+			foreach (Feedback feedback in GetFeedbacksFromDb().Where(f => f.Author.Id == userId))
+			{
+				userFeedbacks.Add(new FeedbackViewModel(feedback));
+			}
+			return userFeedbacks;
+		}
+
+		public List<FeedbackViewModel> GetFacultyFeedbacks(int facultyId)
+		{
+			List<Curator> curatorsFromFaculty = this.context.Curators.Include(a => a.Faculty)
+				.Include(a => a.User).ThenInclude(a => a.Role)
+				.Where(cur => cur.Faculty.Id == facultyId).ToList();
+			List<FeedbackViewModel> feedbacksForFaculty = new List<FeedbackViewModel>();
+			foreach (Curator curator in curatorsFromFaculty)
+			{
+				feedbacksForFaculty.AddRange(this.GetUserFeedbacks(curator.User.Id));
+			}
+			return feedbacksForFaculty;
 		}
 	}
 }

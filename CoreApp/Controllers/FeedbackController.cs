@@ -32,8 +32,30 @@ namespace CoreApp.Controllers
 			return BadRequest();
         }
 
-        // POST api/<controller>
-        [HttpPost("create")]
+		[HttpGet("faculty")]
+		public IActionResult GetFacultyFeedbacks(int facultyId)
+		{
+			List<FeedbackViewModel> facultyFeedbacks = this.repository.GetFacultyFeedbacks(facultyId);
+			if (facultyFeedbacks != null)
+			{
+				return Ok(facultyFeedbacks);
+			}
+			return BadRequest();
+		}
+
+		[HttpGet]
+		public IActionResult GetUserFeedbacks(int userId)
+		{
+			List<FeedbackViewModel> userFeedbacks = this.repository.GetUserFeedbacks(userId);
+			if (userFeedbacks != null)
+			{
+				return Ok(userFeedbacks);
+			}
+			return BadRequest();
+		}
+
+		// POST api/<controller>
+		[HttpPost("create")]
         public IActionResult CreateFeedback([FromBody]FeedbackViewModel viewModel)
         {
 			int? result = this.repository.CreateFeedback(viewModel);
