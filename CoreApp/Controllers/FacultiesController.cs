@@ -22,14 +22,20 @@ namespace CoreApp.Controllers
 		}
 
         // GET: api/values
-        [HttpGet]
-        public IActionResult GetAll()
+        [HttpGet("all")]
+        public IActionResult GetAllFaculties()
         {
 			return Ok(repository.GetAllFaculties());
         }
 
-        // POST api/values
-        [HttpPost]
+		[HttpGet]
+		public IActionResult GetFaculty(int facultyId)
+		{
+			return Ok(repository.GetFaculty(facultyId));
+		}
+
+		// POST api/values
+		[HttpPost]
         public IActionResult Post([FromBody]FacultyViewModel newFaculty)
         {
 			bool result = repository.AddFaculty(newFaculty);

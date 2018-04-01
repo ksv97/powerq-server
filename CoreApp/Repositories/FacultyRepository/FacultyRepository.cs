@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using CoreApp.Models;
 using CoreApp.ViewModels;
+using Microsoft.EntityFrameworkCore;
 
 namespace CoreApp.Repositories.FacultyRepository
 {
@@ -44,6 +45,11 @@ namespace CoreApp.Repositories.FacultyRepository
 			}
 
 			return result;
+		}
+
+		public FacultyViewModel GetFaculty(int facultyId)
+		{
+			return new FacultyViewModel(this.context.Faculties.SingleOrDefault(f => f.Id == facultyId));
 		}
 
 		public bool UpdateFaculty(FacultyViewModel item)

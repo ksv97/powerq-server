@@ -9,6 +9,7 @@ namespace CoreApp.Repositories.FacultyRepository
     public interface IFacultyRepository
     {
 		List<FacultyViewModel> GetAllFaculties();
+		FacultyViewModel GetFaculty (int facultyId);
 		bool DeleteFaculty(FacultyViewModel item);
 		bool AddFaculty(FacultyViewModel item);
 		bool UpdateFaculty(FacultyViewModel item);
