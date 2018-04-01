@@ -37,7 +37,32 @@ namespace CoreApp.Controllers
 		[HttpGet]
 		public IActionResult GetAllScheduleEventsAssignedToUser (int userId)
 		{
-			var result = repository.GetAllScheduleEvents(userId);
+			bool gettingDeadlines = false;
+			var result = repository.GetAllScheduleEvents(userId, gettingDeadlines);
+			if (result != null)
+			{
+				return Ok(result);
+			}
+			else return NotFound();
+		}
+
+		[HttpGet("forfaculty")]
+		public IActionResult GetEventsForFaculty(int facultyId)
+		{
+			bool gettingDeadlines = false;
+			var result = repository.GetAllEventsForFaculty(facultyId, gettingDeadlines);
+			if (result != null)
+			{
+				return Ok(result);
+			}
+			else return NotFound();
+		}
+
+		[HttpGet("deadlinesforfaculty")]
+		public IActionResult GetDeadlinesForFaculty(int facultyId)
+		{
+			bool gettingDeadlines = true;
+			var result = repository.GetAllEventsForFaculty(facultyId, gettingDeadlines);
 			if (result != null)
 			{
 				return Ok(result);
@@ -48,7 +73,8 @@ namespace CoreApp.Controllers
 		[HttpGet("deadlines")]
 		public IActionResult GetUserDeadlines (int userId)
 		{
-			var result = repository.GetUserDeadlines(userId);
+			bool gettingDeadlines = true;
+			var result = repository.GetAllScheduleEvents(userId, gettingDeadlines);
 			if (result != null)
 			{
 				return Ok(result);
