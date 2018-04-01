@@ -10,7 +10,7 @@ namespace CoreApp.Repositories.FeedbackRepository
     {
 		int? CreateFeedback(FeedbackViewModel viewModel);
 		int? UpdateFeedback(FeedbackViewModel viewModel);
-		int? DeleteFeedback(DeleteFeedbackViewModel deleteModel);
+		int? DeleteFeedback(DeleteFeedbackViewModel deleteModel);		
 		List<FeedbackViewModel> GetAllFeedbacks();
 		List<FeedbackViewModel> GetUserFeedbacks(int userId);
 		List<FeedbackViewModel> GetFacultyFeedbacks(int facultyId);

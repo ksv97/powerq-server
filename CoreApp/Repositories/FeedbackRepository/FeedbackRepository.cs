@@ -59,8 +59,7 @@ namespace CoreApp.Repositories.FeedbackRepository
 			ScheduledEvent oldScheduledEventForFeedback = GetScheduledEventByKeys(viewModel.Author.Id, viewModel.Event.Id);
 			if (oldScheduledEventForFeedback != null)
 			{
-				Feedback oldFeedback = oldScheduledEventForFeedback.Feedback;
-				oldFeedback.Mark = viewModel.Mark;
+				Feedback oldFeedback = oldScheduledEventForFeedback.Feedback;				
 				foreach (FeedbackAnswerViewModel newAnswer in viewModel.FeedbackAnswerForm.FeedbackAnswers)
 				{
 					foreach (FeedbackAnswer oldAnswer in oldFeedback.FeedbackAnswerForm.FeedbackAnswers)
