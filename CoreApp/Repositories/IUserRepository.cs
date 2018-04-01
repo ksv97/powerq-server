@@ -9,6 +9,7 @@ namespace CoreApp.Repositories
     public interface IUserRepository
     {
 		List<UserViewModel> GetAllUsers();
+		List<CuratorViewModel> GetCuratorsFromFaculty(int facultyId);
 		UserViewModel TryLogIn(UserViewModel user);
 		CuratorViewModel GetCurator(int userId);
 		ElderCuratorViewModel GetElder(int userId);

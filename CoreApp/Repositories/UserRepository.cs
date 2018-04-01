@@ -26,27 +26,6 @@ namespace CoreApp.Repositories
 			else return false;
 		}
 
-		//public int? CreateUser(UserViewModel newUser)
-		//{
-		//	User user = new User()
-		//	{
-		//		Login = newUser.Login,
-		//		Password = newUser.Password,
-		//		FirstName = newUser.FirstName,
-		//		SurName = newUser.SurName,
-		//		Role = context.Roles.SingleOrDefault(m => m.Name == newUser.Role.Name)
-		//	};
-
-		//	User existingUser = context.Users.Include(a => a.Role).FirstOrDefault(m => m.Login == user.Login);
-		//	if (existingUser == null)
-		//	{
-		//		context.Users.Add(user);
-		//		context.SaveChanges();
-		//		return 1;
-		//	}
-		//	return null;
-		//}
-
 		public List<UserViewModel> GetAllUsers()
 		{
 			var users = context.Users.ToList();
@@ -65,8 +44,6 @@ namespace CoreApp.Repositories
 			if (curatorViewModel != null)
 			{
 				string curatedGroups = curatorViewModel.CuratedGroups;
-				//ParseCuratedGroups(curatorViewModel.CuratedGroups, out curatedGroups);
-
 
 				Curator curator = new Curator()
 				{
@@ -91,27 +68,8 @@ namespace CoreApp.Repositories
 
 		}
 
-		public void ParseCuratedGroups (string[] groups, out string curatedGroups)
-		{
-			curatedGroups = "";
-			foreach (string gr in groups)
-			{
-				curatedGroups += gr + " ";
-			}
-		}
-
 		public int? RegisterElderCurator(ElderCuratorViewModel elderCuratorVM)
 		{
-			//User user = new User()
-			//{
-			//	Login = elderCuratorVM.User.Login,
-			//	Password = elderCuratorVM.User.Password,
-			//	FirstName = elderCuratorVM.User.FirstName,
-			//	SurName = elderCuratorVM.User.SurName,
-			//	Role = context.Roles.SingleOrDefault(r => r.Name == elderCuratorVM.User.Role.Name),
-			//};
-
-			//context.Users.Add(user);
 			
 			ElderCurator elderCurator = new ElderCurator()
 			{
@@ -143,19 +101,6 @@ namespace CoreApp.Repositories
 					Password = user.Password
 				};
 
-				// For Zubkov
-
-				//User existingUser = null;
-				//foreach (User userDB in context.Users.Include(a => a.Role))
-				//{
-				//	if (loginUser.Login == userDB.Login && loginUser.Password == userDB.Password)
-				//	{
-				//		existingUser = userDB;
-				//		break;
-				//	}
-				//}
-
-				// For normal work
 				User existingUser = context.Users.Include(a => a.Role).FirstOrDefault(m => m.Login == loginUser.Login && m.Password == loginUser.Password);
 				if (existingUser != null)
 				{
@@ -226,6 +171,20 @@ namespace CoreApp.Repositories
 				return new ElderCuratorViewModel(elder);
 			}
 			return null;
+		}
+
+		public List<CuratorViewModel> GetCuratorsFromFaculty(int facultyId)
+		{
+			List<Curator> curatorsFromDb = this.context.Curators.Include(i => i.Faculty)
+				.Include(i => i.User).ThenInclude(a => a.Role)
+				.Where(entity => entity.Faculty.Id == facultyId)
+				.ToList();
+			List<CuratorViewModel> curatorsVmList = new List<CuratorViewModel>();
+			foreach (Curator curator in curatorsFromDb)
+			{
+				curatorsVmList.Add(new CuratorViewModel(curator));
+			}
+			return curatorsVmList;
 		}
 	}
 }

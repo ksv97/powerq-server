@@ -87,6 +87,16 @@ namespace CoreApp.Controllers
 			return NotFound("Старший куратор с таким Id не существует!");
 		}
 
-		
+		[HttpGet]
+		[Route("curators")]
+		public IActionResult GetCuratorsFromFaculty(int facultyId)
+		{
+			List<CuratorViewModel> list = repository.GetCuratorsFromFaculty(facultyId);
+			if (list != null)
+			{
+				return Ok(list);
+			}
+			return NotFound();
+		}
 	}
 }
