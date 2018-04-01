@@ -70,14 +70,13 @@ namespace CoreApp.Repositories.EventsRepository
 			}
 			return null;
 		}
+		
 
 		public List<EventViewModel> GetAllScheduleEvents(int userId)
 		{
 			//User user = context.Users.SingleOrDefault(i => i.Id == userId);
-			List<Event> eventsList = context.Events.AsNoTracking().Include(e => e.Author)
-				.Include(i => i.ScheduledEvents).ThenInclude(d => d.User).ThenInclude(u => u.Role)
-				.Include(a => a.ScheduledEvents).ThenInclude(f => f.Feedback)
-				.Where(e => e.IsDeadline == false).OrderBy(i => i.Date).ToList();
+			bool isDeadline = false;
+			List<Event> eventsList = GetEventsFromDb(isDeadline);
 			List<EventViewModel> list = new List<EventViewModel>();
 			foreach (var item in eventsList)
 			{			
@@ -89,11 +88,25 @@ namespace CoreApp.Repositories.EventsRepository
 					}
 				}
 			}
+			return list;	
+		}
 
-			
-
+		public List<EventViewModel> GetUserDeadlines(int userId)
+		{
+			bool isDeadline = true;
+			List<Event> eventsList = GetEventsFromDb(isDeadline);
+			List<EventViewModel> list = new List<EventViewModel>();
+			foreach (var item in eventsList)
+			{
+				foreach (var scheduledEvent in item.ScheduledEvents)
+				{
+					if (scheduledEvent.User.Id == userId)
+					{
+						list.Add(new EventViewModel(item));
+					}
+				}
+			}
 			return list;
-			
 		}
 
 		public int? UpdateScheduleEvent(EventViewModel viewModel)
@@ -135,6 +148,14 @@ namespace CoreApp.Repositories.EventsRepository
 				else return -1;
 			}
 			return null;
+		}
+
+		private List<Event> GetEventsFromDb(bool isDeadline)
+		{
+			return context.Events.AsNoTracking().Include(e => e.Author)
+				.Include(i => i.ScheduledEvents).ThenInclude(d => d.User).ThenInclude(u => u.Role)
+				.Include(a => a.ScheduledEvents).ThenInclude(f => f.Feedback)
+				.Where(e => e.IsDeadline == isDeadline).OrderBy(i => i.Date).ToList();
 		}
 	}
 }

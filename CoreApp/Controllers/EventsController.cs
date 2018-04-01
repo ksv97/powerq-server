@@ -45,6 +45,18 @@ namespace CoreApp.Controllers
 			else return NotFound();
 		}
 
+		[HttpGet("deadlines")]
+		public IActionResult GetUserDeadlines (int userId)
+		{
+			var result = repository.GetUserDeadlines(userId);
+			if (result != null)
+			{
+				return Ok(result);
+			}
+			else return NotFound();
+		}
+
+
 		[HttpPost]
 		[Route("update")]
 		public IActionResult UpdateScheduleEvent ([FromBody] EventViewModel viewModel)
