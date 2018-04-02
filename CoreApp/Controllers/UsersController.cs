@@ -98,5 +98,24 @@ namespace CoreApp.Controllers
 			}
 			return NotFound();
 		}
+
+		[HttpPost]
+		[Route("create")]
+		public IActionResult CreateUser ([FromBody] UserViewModel user)
+		{
+			var result = this.repository.CreateUser(user);
+			if (result == true)
+			{
+				return Ok(result)
+			}
+		}
+
+		[HttpGet]
+		[Route("all")]
+		public IActionResult GetAllUsers()
+		{
+
+		}
+
 	}
 }

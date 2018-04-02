@@ -28,7 +28,7 @@ namespace CoreApp.Repositories
 
 		public List<UserViewModel> GetAllUsers()
 		{
-			var users = context.Users.ToList();
+			var users = context.Users.Include(a => a.Role).ToList();
 
 			List<UserViewModel> result = new List<UserViewModel>();
 
@@ -112,7 +112,7 @@ namespace CoreApp.Repositories
 
 		}
 
-		public bool RegisterUser(UserViewModel userVM)
+		public UserViewModel CreateUser(UserViewModel userVM)
 		{
 			bool success = true;
 			if (userVM != null)

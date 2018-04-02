@@ -7,8 +7,7 @@ using CoreApp.ViewModels;
 namespace CoreApp.Repositories
 {
     public interface IUserRepository
-    {
-		List<UserViewModel> GetAllUsers();
+    {		
 		List<CuratorViewModel> GetCuratorsFromFaculty(int facultyId);
 		UserViewModel TryLogIn(UserViewModel user);
 		CuratorViewModel GetCurator(int userId);
@@ -16,5 +15,8 @@ namespace CoreApp.Repositories
 		bool CheckIfLoginAvailable(string login);
 		int? RegisterCurator(CuratorViewModel curatorViewModel);
 		int? RegisterElderCurator(ElderCuratorViewModel elderCuratorVM);
-    }
+
+		UserViewModel CreateUser(UserViewModel userVM);
+		List<UserViewModel> GetAllUsers();
+	}
 }
