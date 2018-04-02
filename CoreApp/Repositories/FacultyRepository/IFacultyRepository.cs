@@ -10,6 +10,7 @@ namespace CoreApp.Repositories.FacultyRepository
     {
 		List<FacultyViewModel> GetAllFaculties();
 		FacultyViewModel GetFaculty (int facultyId);
+		FacultyViewModel GetUserFaculty(int userId);
 		bool DeleteFaculty(FacultyViewModel item);
 		bool AddFaculty(FacultyViewModel item);
 		bool UpdateFaculty(FacultyViewModel item);

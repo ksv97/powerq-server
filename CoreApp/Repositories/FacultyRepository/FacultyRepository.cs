@@ -52,6 +52,24 @@ namespace CoreApp.Repositories.FacultyRepository
 			return new FacultyViewModel(this.context.Faculties.SingleOrDefault(f => f.Id == facultyId));
 		}
 
+		public FacultyViewModel GetUserFaculty(int userId)
+		{
+			Curator curator = this.context.Curators.Include(c => c.User).Include(f => f.Faculty).SingleOrDefault(entity => entity.User.Id == userId);
+			if (curator != null)
+			{
+				return new FacultyViewModel(curator.Faculty);
+			}
+			else
+			{
+				ElderCurator elder = this.context.ElderCurators.Include(c => c.User).Include(f => f.Faculty).SingleOrDefault(entity => entity.User.Id == userId);
+				if (elder != null)
+				{
+					return new FacultyViewModel(elder.Faculty);
+				}
+				else return null;
+			}			
+		}
+
 		public bool UpdateFaculty(FacultyViewModel item)
 		{
 			throw new NotImplementedException();

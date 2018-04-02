@@ -34,6 +34,17 @@ namespace CoreApp.Controllers
 			return Ok(repository.GetFaculty(facultyId));
 		}
 
+		[HttpGet("userfaculty")]
+		public IActionResult GetUserFaculty(int userId)
+		{
+			var result = this.repository.GetUserFaculty(userId);
+			if (result != null)
+			{
+				return Ok(result);
+			}
+			return NotFound();
+		}
+
 		// POST api/values
 		[HttpPost]
         public IActionResult Post([FromBody]FacultyViewModel newFaculty)
