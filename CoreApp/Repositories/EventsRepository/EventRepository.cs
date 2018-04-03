@@ -71,6 +71,17 @@ namespace CoreApp.Repositories.EventsRepository
 			return null;
 		}
 
+		public List<EventViewModel> GetAllEvents(bool gettingDeadlines)
+		{			
+			List<Event> allEvents = this.GetEventsFromDb(gettingDeadlines);
+			List<EventViewModel> viewModelList = new List<EventViewModel>();
+			foreach (Event elem in allEvents)
+			{
+				viewModelList.Add(new EventViewModel(elem));
+			}
+			return viewModelList;
+		}
+
 		public List<EventViewModel> GetAllEventsForFaculty(int facultyId, bool isDeadline)
 		{			
 			List<Curator> curatorsFromFaculty = this.context.Curators.Include(a => a.Faculty)
@@ -79,12 +90,12 @@ namespace CoreApp.Repositories.EventsRepository
 			List<EventViewModel> eventsForFaculty = new List<EventViewModel>();
 			foreach (Curator curator in curatorsFromFaculty)
 			{
-				eventsForFaculty.AddRange(this.GetAllScheduleEvents(curator.User.Id, isDeadline));
+				eventsForFaculty.AddRange(this.GetAllScheduleEventsAssignedToUser(curator.User.Id, isDeadline));
 			}
 			return eventsForFaculty;
 		}
 
-		public List<EventViewModel> GetAllScheduleEvents(int userId, bool gettingDeadlines)
+		public List<EventViewModel> GetAllScheduleEventsAssignedToUser(int userId, bool gettingDeadlines)
 		{
 			//User user = context.Users.SingleOrDefault(i => i.Id == userId);
 			
@@ -160,7 +171,8 @@ namespace CoreApp.Repositories.EventsRepository
 				else return -1;
 			}
 			return null;
-		}		
+		}
+				
 
 		private List<Event> GetEventsFromDb(bool isDeadline)
 		{
