@@ -92,6 +92,7 @@ namespace CoreApp.Repositories.EventsRepository
 			{
 				eventsForFaculty.AddRange(this.GetAllScheduleEventsAssignedToUser(curator.User.Id, isDeadline));
 			}
+			eventsForFaculty = eventsForFaculty.GroupBy(i => i.Id).Select(grp => grp.First()).ToList();
 			return eventsForFaculty;
 		}
 
