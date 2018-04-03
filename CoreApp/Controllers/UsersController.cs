@@ -104,17 +104,23 @@ namespace CoreApp.Controllers
 		public IActionResult CreateUser ([FromBody] UserViewModel user)
 		{
 			var result = this.repository.CreateUser(user);
-			if (result == true)
+			if (result != null)
 			{
-				return Ok(result)
+				return Ok(result);
 			}
+			return BadRequest();
 		}
 
 		[HttpGet]
 		[Route("all")]
 		public IActionResult GetAllUsers()
 		{
-
+			var result = this.repository.GetAllUsers();
+			if (result != null)
+			{
+				return Ok(result);
+			}
+			return NotFound();
 		}
 
 	}

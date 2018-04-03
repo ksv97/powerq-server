@@ -136,15 +136,13 @@ namespace CoreApp.Repositories
 				}
 				if (success)
 				{
-					context.Users.Add(newUser);
+					var entity = context.Users.Add(newUser);
 					context.SaveChanges();
+					User newUserEntity = entity.Entity;
+					return new UserViewModel(newUserEntity);
 				}
 			}
-			else
-			{
-				success = false;
-			}
-			return success;
+			return null;
 		}
 
 		public CuratorViewModel GetCurator(int userId)
