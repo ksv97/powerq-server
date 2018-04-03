@@ -197,5 +197,15 @@ namespace CoreApp.Repositories
 			}
 			return null;
 		}
+
+		public List<UserViewModel> GetAllUsersWhoAreCurators()
+		{
+			return this.GetAllUsers().Where(i => i.Role.Name == "Куратор").ToList();
+		}
+
+		public List<UserViewModel> GetAllUsersWhoAreElders()
+		{
+			return this.GetAllUsers().Where(i => i.Role.Name == "Старший куратор" && i.IsAdmin == false).ToList();
+		}
 	}
 }

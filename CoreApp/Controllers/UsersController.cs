@@ -135,5 +135,29 @@ namespace CoreApp.Controllers
 			return NotFound();
 		}
 
+		[HttpGet]
+		[Route("curatorusers")]
+		public IActionResult GetAllUsersWhoAreCurator()
+		{
+			var result = this.repository.GetAllUsersWhoAreCurators();
+			if (result != null)
+			{
+				return Ok(result);
+			}
+			return NotFound();
+		}
+
+		[HttpGet]
+		[Route("elderusers")]
+		public IActionResult GetAllUsersWhoAreElders()
+		{
+			var result = this.repository.GetAllUsersWhoAreElders();
+			if (result != null)
+			{
+				return Ok(result);
+			}
+			return NotFound();
+		}
+
 	}
 }
