@@ -184,5 +184,18 @@ namespace CoreApp.Repositories
 			}
 			return curatorsVmList;
 		}
+
+		public int? DeleteUser(int userId)
+		{
+			User userToDelete = this.context.Users.SingleOrDefault(i => i.Id == userId);
+			if (userToDelete != null)
+			{
+				this.context.Users.Remove(userToDelete);
+				this.context.SaveChanges();
+				return 1;
+
+			}
+			return null;
+		}
 	}
 }

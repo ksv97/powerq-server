@@ -17,6 +17,7 @@ namespace CoreApp.Repositories
 		int? RegisterElderCurator(ElderCuratorViewModel elderCuratorVM);
 
 		UserViewModel CreateUser(UserViewModel userVM);
+		int? DeleteUser(int userId);
 		List<UserViewModel> GetAllUsers();
 	}
 }

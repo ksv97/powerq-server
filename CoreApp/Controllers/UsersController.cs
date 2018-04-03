@@ -111,6 +111,18 @@ namespace CoreApp.Controllers
 			return BadRequest();
 		}
 
+		[HttpPost]
+		[Route("delete")]
+		public IActionResult DeleteUser([FromBody] int id)
+		{
+			var result = this.repository.DeleteUser(id);
+			if (result != null)
+			{
+				return Ok(result);
+			}
+			return BadRequest();
+		}
+
 		[HttpGet]
 		[Route("all")]
 		public IActionResult GetAllUsers()

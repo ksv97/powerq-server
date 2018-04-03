@@ -13,6 +13,7 @@ namespace CoreApp.ViewModels
 		public string Password { set; get; }
 		public string FirstName { set; get; }
 		public string SurName { set; get; }
+		public bool IsAdmin { set; get; }
 
 		public RoleViewModel Role { set; get; }
 
@@ -25,6 +26,7 @@ namespace CoreApp.ViewModels
 				Password = user.Password;
 				FirstName = user.FirstName;
 				SurName = user.SurName;
+				IsAdmin = user.IsAdmin;
 				Role = new RoleViewModel(user.Role);
 			}			
 		}
