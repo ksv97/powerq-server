@@ -32,8 +32,8 @@ namespace CoreApp.Controllers
 		[Route("create")]
 		public IActionResult CreateFeedbackForm ([FromBody]FeedbackFormViewModel viewModel)
 		{
-			bool result = this.repository.AddFeedbackForm(viewModel);
-			if (result == true)
+			int? result = this.repository.AddFeedbackForm(viewModel);
+			if (result != null)
 			{
 				return Ok(result);
 			}

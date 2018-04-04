@@ -18,7 +18,7 @@ namespace CoreApp.Repositories.FeedbackFormRepository
 			this.context = context;
 		}
 
-		public bool AddFeedbackForm(FeedbackFormViewModel item)
+		public int? AddFeedbackForm(FeedbackFormViewModel item)
 		{			
 			if (item != null)
 			{
@@ -35,11 +35,11 @@ namespace CoreApp.Repositories.FeedbackFormRepository
 					};
 					newFeedbackForm.FeedbackQuestions.Add(feedbackQuestion);
 				}
-				this.context.FeedbackForms.Add(newFeedbackForm);
+				var a = this.context.FeedbackForms.Add(newFeedbackForm);
 				this.context.SaveChanges();
-				return true;
+				return a.Entity.Id;				
 			}
-			return false;			
+			return null;			
 		}
 
 		public bool DeleteFeedbackForm(int id)

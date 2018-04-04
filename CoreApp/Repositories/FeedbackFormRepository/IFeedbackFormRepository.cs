@@ -11,7 +11,7 @@ namespace CoreApp.Repositories.FeedbackFormRepository
     {
 		List<FeedbackFormViewModel> GetAllFeedbackForms();
 		bool DeleteFeedbackForm(int id);
-		bool AddFeedbackForm(FeedbackFormViewModel item);
+		int? AddFeedbackForm(FeedbackFormViewModel item);
 		bool UpdateFeedbackForm(FeedbackFormViewModel item);
 	}
 }
