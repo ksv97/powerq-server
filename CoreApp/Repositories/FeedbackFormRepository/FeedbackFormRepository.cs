@@ -81,6 +81,8 @@ namespace CoreApp.Repositories.FeedbackFormRepository
 					formFromDb.DeadlineDate = item.DeadlineDate;
 					formFromDb.Name = item.Name;
 
+					List<FeedbackQuestion> questionsToRemove = new List<FeedbackQuestion>();
+
 					foreach (FeedbackQuestion questionFromDb in formFromDb.FeedbackQuestions)
 					{
 						// Найти в новом списке элемент с совпадающим айдишником
@@ -93,10 +95,11 @@ namespace CoreApp.Repositories.FeedbackFormRepository
 						}
 						else // иначе удалить существующий элемент
 						{
-							formFromDb.FeedbackQuestions.Remove(questionFromDb);
+							questionsToRemove.Add(questionFromDb);
 						}
 					}
 
+					context.RemoveRange(questionsToRemove);					
 					context.SaveChanges();
 
 					// Выбрать все вопросы, у которых айди равен -1 (то есть новые) и добавить их в список
@@ -110,6 +113,7 @@ namespace CoreApp.Repositories.FeedbackFormRepository
 						formFromDb.FeedbackQuestions.Add(questionToAdd);
 					}
 					context.SaveChanges();
+					return true;
 				}
 				else return false;
 			}
