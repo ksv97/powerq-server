@@ -207,5 +207,10 @@ namespace CoreApp.Repositories
 		{
 			return this.GetAllUsers().Where(i => i.Role.Name == "Старший куратор" && i.IsAdmin == false).ToList();
 		}
+
+		public int? UpdateUser(UserViewModel userVm)
+		{
+			throw new NotImplementedException();
+		}
 	}
 }

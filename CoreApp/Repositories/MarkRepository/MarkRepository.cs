@@ -41,6 +41,7 @@ namespace CoreApp.Repositories.MarkRepository
 			return this.context.ScheduledEvents.Include(f => f.Feedback).ThenInclude(a => a.FeedbackAnswerForm).ThenInclude(f => f.FeedbackAnswers).Include(u => u.User).Include(e => e.Event).Single(i => i.Event.Id == eventId && i.User.Id == userId);
 		}
 
+		// оценка факультета = средняя оценка кураторов факультета с округлением в большую сторону
 		private int CalculateFacultyMark (int facultyId)
 		{
 			Faculty faculty = this.context.Faculties.Include(u => u.Users).SingleOrDefault(a => a.Id == facultyId);

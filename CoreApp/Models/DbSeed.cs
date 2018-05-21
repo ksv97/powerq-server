@@ -49,38 +49,38 @@ namespace CoreApp.Models
 				{
 					FirstName = "Родион",
 					SurName = "Косов",
-					Login = "ksv97",
-					Password = "ksv97",
+					Login = "admin",
+					Password = "admin",
 					IsAdmin = true,
 					RoleId = context.Roles.FirstOrDefault(r => r.Name == "Старший куратор").Id,
 				},
-				new User
-				{
-					FirstName = "Аня",
-					SurName = "Соколова",
-					Login = "ann123",
-					Password = "ann123",
-					IsAdmin = false,
-					Role = context.Roles.FirstOrDefault(r => r.Name == "Куратор"),
-				},
-				new User
-				{
-					FirstName = "Саша",
-					SurName = "Баранов",
-					Login = "alex123",
-					Password = "alex123",
-					IsAdmin = false,
-					Role = context.Roles.FirstOrDefault(r => r.Name == "Куратор"),
-				},
-				new User
-				{
-					FirstName = "Даша",
-					SurName = "Волкова",
-					Login = "dasha123",
-					Password = "dasha123",
-					IsAdmin = false,
-					Role = context.Roles.FirstOrDefault(r => r.Name == "Старший куратор"),
-				}
+				//new User
+				//{
+				//	FirstName = "Аня",
+				//	SurName = "Соколова",
+				//	Login = "ann123",
+				//	Password = "ann123",
+				//	IsAdmin = false,
+				//	Role = context.Roles.FirstOrDefault(r => r.Name == "Куратор"),
+				//},
+				//new User
+				//{
+				//	FirstName = "Саша",
+				//	SurName = "Баранов",
+				//	Login = "alex123",
+				//	Password = "alex123",
+				//	IsAdmin = false,
+				//	Role = context.Roles.FirstOrDefault(r => r.Name == "Куратор"),
+				//},
+				//new User
+				//{
+				//	FirstName = "Даша",
+				//	SurName = "Волкова",
+				//	Login = "dasha123",
+				//	Password = "dasha123",
+				//	IsAdmin = false,
+				//	Role = context.Roles.FirstOrDefault(r => r.Name == "Старший куратор"),
+				//}
 			};
 
 			foreach (var user in users)
@@ -90,89 +90,92 @@ namespace CoreApp.Models
 
 			context.SaveChanges();
 
-			var curators = new Curator[]
-			{
-				new Curator
-				{
-					CuratedGroups = "41 42",
-					Mark = 30,
-					Faculty = context.Faculties.SingleOrDefault(x => x.Name == "ЭЭФ"),
-					User = context.Users.SingleOrDefault(x => x.Login == "ann123"),
-				}
-			};
+			//var curators = new Curator[]
+			//{
+			//	new Curator
+			//	{
+			//		CuratedGroups = "41 42",
+			//		Mark = 30,
+			//		Faculty = context.Faculties.SingleOrDefault(x => x.Name == "ЭЭФ"),
+			//		User = context.Users.SingleOrDefault(x => x.Login == "ann123"),
+			//	}
+			//};
 
-			foreach (var curator in curators)
-			{
-				context.Curators.Add(curator);
-			}
+			//foreach (var curator in curators)
+			//{
+			//	context.Curators.Add(curator);
+			//}
 
-			context.SaveChanges();
+			//context.SaveChanges();
+			#region Events
+			//var events = new Event[]
+			//{
+			//	new Event
+			//	{
+			//		Title = "Кураторский час с группой 1-41",
+			//		Description = "Провести четвертый кч с группой 1-41. Вся подробная информация в группе ВК. Аудитория Б001в. Время - 11:40.",
+			//		Date = new DateTime(2017, 09, 27, 11, 40, 0),
+			//		IsDeadline = false,
+			//		Author = context.Users.Single(a => a.Login == "ann123")
+			//	},
+			//	new Event
+			//	{
+			//		Title = "Общая планерка",
+			//		Description = "Общая планерка по 4 кч. Проводим в пятницу, в холле корпуса В. Время - 19:20. Присутствие обязательно!",
+			//		Date = new DateTime(2017, 09, 30, 19, 20, 0),
+			//		IsDeadline = false,
+			//		Author = context.Users.Single(a => a.Login == "ksv97")
+			//	},
+			//	new Event
+			//	{
+			//		Title = "Кураторский час с группой 1-42",
+			//		Description = "Провести четвертый кч с группой 1-42. Вся подробная информация в группе ВК. Аудитория А342. Время - 13:30.",
+			//		Date = new DateTime(2017, 09, 28, 13, 30, 0),
+			//		IsDeadline = false,
+			//		Author = context.Users.Single(a => a.Login == "ann123")
+			//	},
+			//};
 
-			var events = new Event[]
-			{
-				new Event
-				{
-					Title = "Кураторский час с группой 1-41",
-					Description = "Провести четвертый кч с группой 1-41. Вся подробная информация в группе ВК. Аудитория Б001в. Время - 11:40.",
-					Date = new DateTime(2017, 09, 27, 11, 40, 0),
-					IsDeadline = false,
-					Author = context.Users.Single(a => a.Login == "ann123")
-				},
-				new Event
-				{
-					Title = "Общая планерка",
-					Description = "Общая планерка по 4 кч. Проводим в пятницу, в холле корпуса В. Время - 19:20. Присутствие обязательно!",
-					Date = new DateTime(2017, 09, 30, 19, 20, 0),
-					IsDeadline = false,
-					Author = context.Users.Single(a => a.Login == "ksv97")
-				},
-				new Event
-				{
-					Title = "Кураторский час с группой 1-42",
-					Description = "Провести четвертый кч с группой 1-42. Вся подробная информация в группе ВК. Аудитория А342. Время - 13:30.",
-					Date = new DateTime(2017, 09, 28, 13, 30, 0),
-					IsDeadline = false,
-					Author = context.Users.Single(a => a.Login == "ann123")
-				},
-			};
+			//foreach (var ev in events)
+			//{
+			//	context.Events.Add(ev);
+			//}
 
-			foreach (var ev in events)
-			{
-				context.Events.Add(ev);
-			}
+			//context.SaveChanges();
+			#endregion
 
-			context.SaveChanges();
+			#region ScheduledEvents
+			//var scheduleEventUsers = new ScheduledEvent[]
+			//{
+			//	new ScheduledEvent
+			//	{
+			//		EventId = context.Events.SingleOrDefault(i => i.Title == "Кураторский час с группой 1-41").Id,
+			//		UserId = context.Users.SingleOrDefault(i => i.Login == "ann123").Id,
+			//	},
+			//	new ScheduledEvent
+			//	{
+			//		EventId = context.Events.SingleOrDefault(i => i.Title == "Общая планерка").Id,
+			//		UserId = context.Users.SingleOrDefault(i => i.Login == "ann123").Id,
+			//	},
+			//	new ScheduledEvent
+			//	{
+			//		EventId = context.Events.SingleOrDefault(i => i.Title == "Общая планерка").Id,
+			//		UserId = context.Users.SingleOrDefault(i => i.Login == "alex123").Id,
+			//	},
+			//	new ScheduledEvent
+			//	{
+			//		EventId = context.Events.SingleOrDefault(i => i.Title == "Кураторский час с группой 1-42").Id,
+			//		UserId = context.Users.SingleOrDefault(i => i.Login == "ann123").Id,
+			//	},
+			//};
 
-			var scheduleEventUsers = new ScheduledEvent[]
-			{
-				new ScheduledEvent
-				{
-					EventId = context.Events.SingleOrDefault(i => i.Title == "Кураторский час с группой 1-41").Id,
-					UserId = context.Users.SingleOrDefault(i => i.Login == "ann123").Id,
-				},
-				new ScheduledEvent
-				{
-					EventId = context.Events.SingleOrDefault(i => i.Title == "Общая планерка").Id,
-					UserId = context.Users.SingleOrDefault(i => i.Login == "ann123").Id,
-				},
-				new ScheduledEvent
-				{
-					EventId = context.Events.SingleOrDefault(i => i.Title == "Общая планерка").Id,
-					UserId = context.Users.SingleOrDefault(i => i.Login == "alex123").Id,
-				},
-				new ScheduledEvent
-				{
-					EventId = context.Events.SingleOrDefault(i => i.Title == "Кураторский час с группой 1-42").Id,
-					UserId = context.Users.SingleOrDefault(i => i.Login == "ann123").Id,
-				},
-			};
+			//foreach (var element in scheduleEventUsers)
+			//{
+			//	context.ScheduledEvents.Add(element);
+			//}
 
-			foreach (var element in scheduleEventUsers)
-			{
-				context.ScheduledEvents.Add(element);
-			}
-
-			context.SaveChanges();
+			//context.SaveChanges();
+			#endregion
 
 			var feedbackForms = new FeedbackForm[]
 {

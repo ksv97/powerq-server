@@ -77,7 +77,19 @@ namespace CoreApp.Repositories.EventsRepository
 			List<EventViewModel> viewModelList = new List<EventViewModel>();
 			foreach (Event elem in allEvents)
 			{
-				viewModelList.Add(new EventViewModel(elem));
+				bool isFeedbacked = false;
+				foreach (ScheduledEvent scheduledEvent in elem.ScheduledEvents)
+				{
+					if (scheduledEvent.Feedback != null)
+					{
+						isFeedbacked = true;
+						break;
+					}
+				}
+				if (!isFeedbacked)
+				{
+					viewModelList.Add(new EventViewModel(elem));
+				}				
 			}
 			return viewModelList;
 		}
@@ -92,7 +104,7 @@ namespace CoreApp.Repositories.EventsRepository
 			{
 				eventsForFaculty.AddRange(this.GetAllScheduleEventsAssignedToUser(curator.User.Id, isDeadline));
 			}
-			eventsForFaculty = eventsForFaculty.GroupBy(i => i.Id).Select(grp => grp.First()).ToList();
+			eventsForFaculty = eventsForFaculty.GroupBy(i => i.Id).Select(grp => grp.First()).OrderBy(d => d.Date).ToList();
 			return eventsForFaculty;
 		}
 
